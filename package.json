@@ -1,0 +1,25 @@
+{
+  "name": "react-native-draggable",
+  "version": "1.0.0",
+  "description": "initial repo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tongyy/react-native-draggable.git"
+  },
+  "keywords": [
+    "react-native",
+    "draggable",
+    "drag",
+    "drop"
+  ],
+  "author": "tongyy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tongyy/react-native-draggable/issues"
+  },
+  "homepage": "https://github.com/tongyy/react-native-draggable#readme"
+}
