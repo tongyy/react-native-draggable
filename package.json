@@ -1,7 +1,7 @@
 {
   "name": "react-native-draggable",
   "version": "1.0.1",
-  "description": "initial repo",
+  "description": "draggable",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +9,16 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tongyy/react-native-draggable.git"
+  },
+  "dependencies": {
+	"react": "16.0.0-alpha.6",
+	"react-native": "0.44.0"
+  },
+  "devDependencies": {
+	"babel-jest": "20.0.0",
+	"babel-preset-react-native": "1.9.1",
+	"jest": "20.0.0",
+	"react-test-renderer": "16.0.0-alpha.6"
   },
   "keywords": [
     "react-native",
