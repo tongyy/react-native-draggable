@@ -11,13 +11,13 @@ import {
 	Text,
 	View
 } from 'react-native';
-import Draggable from 'react-native-draggable';
+import Draggable from './Draggable';
 
 export default class DraggableDemo extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Draggable pressDrag={() => alert('touched')}/> 
+				<Draggable renderSize={36} renderText='Hi' pressDrag={()=>alert('touched!!')}/> 
 				<Text style={styles.welcome}>
 					Welcome to React Native!
 				</Text>

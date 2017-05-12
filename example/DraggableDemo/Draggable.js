@@ -51,6 +51,7 @@ export default class Draggable extends Component {
 	_positionCss = (size)=>{
 		let Window = Dimensions.get('window');
 		return {
+			zIndex:999,
 			position: 'absolute',
 			top: Window.height/2 - size+100,
 			left: Window.width/2 - size+100,
