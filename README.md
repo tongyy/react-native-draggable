@@ -16,8 +16,9 @@ return (
   </View>
 );
 ```
+[DEMO](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo.gif)
 
-[![N|Solid](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo.gif)]()
+[![N|Solid](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo.gif)](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo.gif)
 
 Props spec
 
