@@ -23,12 +23,12 @@ export default class Draggable extends Component {
 		offsetX:React.PropTypes.number,
 		offsetY:React.PropTypes.number,
 		renderCorlor:React.PropTypes.string,
-		reverse:React.PropTypes.bool,
+		reverse:React.PropTypes.boolean,
 		pressDrag:React.PropTypes.func
 	};
 	constructor(props) {
 		super(props);
-		const { pressDrag, renderText, renderShape, renderSize, renderColor, offsetX, offsetY, reverse} = props;
+		const { pressDrag, renderText, renderShape renderSize, renderColor, offsetX, offsetY, reverse} = props;
 		console.log(props);
 		this.pressDrag = pressDrag;
 		this.renderShape = renderShape ? renderShape : 'circle';
@@ -49,10 +49,7 @@ export default class Draggable extends Component {
 				dx:this.state.pan.x,
 				dy:this.state.pan.y
 			}]),
-			onPanResponderRelease: (e, gestureState) => {
-			//this.state.pan.flattenOffset();
-				//gesture.d{this.state.pan.x,this.state.pan.y}	
-				console.log(e);
+			onPanResponderRelease: (e, gesture) => {
 				Animated.spring(            
 					this.state.pan,         
 					{toValue:{x:0,y:0}}     
@@ -104,7 +101,7 @@ export default class Draggable extends Component {
 					{...this.panResponder.panHandlers}
 					style={[this.state.pan.getLayout(), this._dragItemCss(this.renderSize)]}>
 					<TouchableOpacity 
-						style={this._dragItemCss(this.renderSize,this.renderColor,this.renderShape)}
+						style={this._dragItemCss(this.renderSize, this.renderColor)}
 						onPress={this.pressDrag}>
 					<Text style={this._dragItemTextCss(this.renderSize)}>{this.renderText}</Text>
 					</TouchableOpacity>

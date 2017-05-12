@@ -17,7 +17,7 @@ export default class DraggableDemo extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Draggable renderSize={36} renderText='Hi' pressDrag={()=>alert('touched!!')}/> 
+				<Draggable renderSize={30} offsetX={-100} offsetY={-200} renderText='Hi' pressDrag={()=>alert('touched!!')}/> 
 				<Text style={styles.welcome}>
 					Welcome to React Native!
 				</Text>
