@@ -18,7 +18,7 @@ export default class DraggableDemo extends Component {
 		return (
 			<View >
 				<Draggable/>
-				<Draggable reverse={false} renderColor='red' offsetX={0} offsetY={0} renderText='B'/>
+				<Draggable reverse={false} renderColor='red' renderShape='square' offsetX={0} offsetY={0} renderText='B'/>
 				<Draggable renderSize={56} renderColor='black' offsetX={-100} offsetY={-200} renderText='A' pressDrag={()=>alert('touched!!')}/> 
 			</View>
 		);
