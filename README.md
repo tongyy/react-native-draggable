@@ -21,14 +21,14 @@ return (
 
 Props spec
 
-		renderText:React.PropTypes.string => text of draggable item
-		renderShape:React.PropTypes.string => 'circle' 'square'
-		renderSize:React.PropTypes.number =>'36' 
-		offsetX:React.PropTypes.number => offsetX with center
-		offsetY:React.PropTypes.number => offsetY with center
-		renderCorlor:React.PropTypes.string => [Colors](https://facebook.github.io/react-native/docs/colors.html)
-		reverse:React.PropTypes.bool => reverse to initial position
-		pressDrag:React.PropTypes.func => onPress event
+* renderText:React.PropTypes.string => text of draggable item
+* renderShape:React.PropTypes.string => 'circle' 'square'
+* renderSize:React.PropTypes.number =>'36' 
+* offsetX:React.PropTypes.number => offsetX with center
+* offsetY:React.PropTypes.number => offsetY with center
+* renderCorlor:React.PropTypes.string => [Colors](https://facebook.github.io/react-native/docs/colors.html)
+* reverse:React.PropTypes.bool => reverse to initial position
+* pressDrag:React.PropTypes.func => onPress event
     
     
    
