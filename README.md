@@ -30,6 +30,11 @@ Props spec
 * renderCorlor:React.PropTypes.string => [Colors](https://facebook.github.io/react-native/docs/colors.html)
 * reverse:React.PropTypes.bool => reverse to initial position
 * pressDrag:React.PropTypes.func => onPress event
-    
+
+What's the next?
+
+This Draggable is used to be a Draggable Button in my project. It's enough for me.
+Let me know if you have any idea or demand, let's discuss and develop it.
+    
     
    
