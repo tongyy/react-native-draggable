@@ -33,7 +33,7 @@ Props spec
 
 What's the next?
 
-This Draggable is used to be a Draggable Button in my project. It's enough for me.
+This Draggable is used to be a Draggable Button in my project. 
 Let me know if you have any idea or demand, let's discuss and develop it.
     
     
