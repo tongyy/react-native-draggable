@@ -18,7 +18,7 @@ return (
 ```
 [DEMO](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo.gif)
 
-[![N|Solid](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo.gif)](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo.gif)
+[![N|Solid](https://raw.githubusercontent.com/tongyy/react-native-draggable/master/demo/demo.gif)](https://raw.githubusercontent.com/tongyy/react-native-draggable/master/demo/demo.gif)
 
 Props spec
 
