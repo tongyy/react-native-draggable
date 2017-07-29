@@ -1,4 +1,10 @@
 # react-native-draggable
+[![Build Status](https://travis-ci.org/tongyy/react-native-draggable.svg?branch=master)](https://travis-ci.org/tongyy/react-native-draggable)
+[![npm version](https://badge.fury.io/js/react-native-draggable.svg)](https://badge.fury.io/js/react-native-draggable)
+
+[![NPM](https://nodei.co/npm/react-native-draggable.png?compact=true)](https://npmjs.org/package/react-native-draggable)
+
+
 Draggable item for react-native!
 
 ```
@@ -57,7 +63,8 @@ return (
 * longPressDrag:React.PropTypes.func,=> long press event
 * pressInDrag:React.PropTypes.func,=> in press event
 * pressOutDrag:React.PropTypes.func=> out press event
-What's the next?
+
+# What's the next?
 
 This Draggable is used to be a Draggable Button in my project. 
 Let me know if you have any idea or demand, let's discuss and develop it.
