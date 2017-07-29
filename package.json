@@ -1,10 +1,10 @@
 {
   "name": "react-native-draggable",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "draggable",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,10 @@
     "babel-preset-react-native": "1.9.1",
     "jest": "20.0.0",
     "react-test-renderer": "16.0.0-alpha.6"
+  },
+  "jest": {
+	"modulePathIgnorePatterns": ["<rootDir>/example/"],
+    "preset": "react-native"
   },
   "keywords": [
     "react-native",

@@ -11,15 +11,31 @@ import {
 	Text,
 	View
 } from 'react-native';
-import Draggable from 'react-native-draggable';
+//import Draggable from 'react-native-draggable';
+import Draggable from './Draggable';//first, run "npm run source" to get Draggable.js
 
 export default class DraggableDemo extends Component {
+	constructor(props) {
+		super(props);
+		this._changeFace = this._changeFace.bind(this);
+		this.state = {
+			source: require('./img/trump1.png')
+		};
+	}
+	_changeFace() {
+		this.setState({source:require('./img/trump2.png')});
+	}
 	render() {
 		return (
-			<View >
-				<Draggable/>
-				<Draggable reverse={false} renderColor='red' renderShape='square' offsetX={0} offsetY={0} renderText='B'/>
-				<Draggable renderSize={56} renderColor='black' offsetX={-100} offsetY={-200} renderText='A' pressDrag={()=>alert('touched!!')}/> 
+			<View style={{backgroundColor: 'blue', flex: 0.5}} >
+				<Draggable renderShape='image' imageSource={this.state.source} renderSize={80} 
+					offsetX={0} offsetY={0}
+					pressDragRelease={this._changeFace}
+					longPressDrag={()=>console.log('long press')}
+					pressDrag={this._changeFace}
+					pressInDrag={()=>console.log('in press')}
+					pressOutDrag={()=>console.log('out press')}
+				/>
 			</View>
 		);
 	}
