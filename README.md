@@ -16,9 +16,16 @@ return (
   </View>
 );
 ```
-[DEMO](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo.gif)
+[DEMO1](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo.gif)
 
 [![N|Solid](https://raw.githubusercontent.com/tongyy/react-native-draggable/master/demo/demo.gif)](https://raw.githubusercontent.com/tongyy/react-native-draggable/master/demo/demo.gif)
+in my project => <img src="https://raw.githubusercontent.com/tongyy/react-native-draggable/master/demo/demo2.png" width="289">
+
+
+[DEMO2](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo3.gif)
+
+![DEMO2](https://raw.githubusercontent.com/tongyy/react-native-draggable/master/demo/demo3.gif)
+
 
 Props spec
 
