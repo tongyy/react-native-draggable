@@ -1,4 +1,6 @@
 # react-native-draggable
+[![Build Status](https://travis-ci.org/tongyy/react-native-draggable.svg?branch=master)](https://travis-ci.org/tongyy/react-native-draggable)
+
 Draggable item for react-native!
 
 ```
