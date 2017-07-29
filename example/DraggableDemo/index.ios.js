@@ -11,8 +11,8 @@ import {
 	Text,
 	View
 } from 'react-native';
-//import Draggable from 'react-native-draggable';
-import Draggable from './Draggable';//first, run "npm run source" to get Draggable.js
+import Draggable from 'react-native-draggable';
+//import Draggable from './Draggable';//first, run "npm run source" to get Draggable.js
 
 export default class DraggableDemo extends Component {
 	constructor(props) {

@@ -5,13 +5,13 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-	"target": "cp Draggable.js ../../Draggable.js",
-	"source": "cp ../../Draggable.js ."
+    "target": "cp Draggable.js ../../Draggable.js",
+    "source": "cp ../../Draggable.js ."
   },
   "dependencies": {
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",
-    "react-native-draggable": "file:///Users/tony/Desktop/react-native/react-native-draggable"
+    "react-native-draggable": "^1.0.6"
   },
   "devDependencies": {
     "babel-jest": "20.0.0",
