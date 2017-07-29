@@ -23,6 +23,7 @@ export default class DraggableDemo extends Component {
 		};
 	}
 	_changeFace() {
+		console.log("drag release");
 		this.setState({source:require('./img/trump2.png')});
 	}
 	render() {
@@ -32,7 +33,7 @@ export default class DraggableDemo extends Component {
 					offsetX={0} offsetY={0}
 					pressDragRelease={this._changeFace}
 					longPressDrag={()=>console.log('long press')}
-					pressDrag={this._changeFace}
+					pressDrag={()=>console.log('press drag')}
 					pressInDrag={()=>console.log('in press')}
 					pressOutDrag={()=>console.log('out press')}
 				/>
