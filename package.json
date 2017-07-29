@@ -1,6 +1,6 @@
 {
   "name": "react-native-draggable",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "draggable",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,9 @@
     "react-test-renderer": "16.0.0-alpha.6"
   },
   "jest": {
-	"modulePathIgnorePatterns": ["<rootDir>/example/"],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/"
+    ],
     "preset": "react-native"
   },
   "keywords": [
