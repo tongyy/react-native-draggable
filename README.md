@@ -64,7 +64,7 @@ return (
 * pressInDrag:React.PropTypes.func,=> in press event
 * pressOutDrag:React.PropTypes.func=> out press event
 
-# What's the next?
+# What's next?
 
 This Draggable is used to be a Draggable Button in my project. 
 Let me know if you have any idea or demand, let's discuss and develop it.
