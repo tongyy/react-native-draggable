@@ -15,22 +15,23 @@ import {
 	TouchableOpacity
 } from 'react-native';
 
+import PropTypes from 'prop-types';
 
 export default class Draggable extends Component {
 	static propTypes = {
-		renderText:React.PropTypes.string,
-		renderShape:React.PropTypes.string,
-		renderSize:React.PropTypes.number,
-		imageSource:React.PropTypes.number,
-		offsetX:React.PropTypes.number,
-		offsetY:React.PropTypes.number,
-		renderCorlor:React.PropTypes.string,
-		reverse:React.PropTypes.bool,
-		pressDrag:React.PropTypes.func,
-		pressDragRelease:React.PropTypes.func,
-		longPressDrag:React.PropTypes.func,
-		pressInDrag:React.PropTypes.func,
-		pressOutDrag:React.PropTypes.func
+		renderText:PropTypes.string,
+		renderShape:PropTypes.string,
+		renderSize:PropTypes.number,
+		imageSource:PropTypes.number,
+		offsetX:PropTypes.number,
+		offsetY:PropTypes.number,
+		renderCorlor:PropTypes.string,
+		reverse:PropTypes.bool,
+		pressDrag:PropTypes.func,
+		pressDragRelease:PropTypes.func,
+		longPressDrag:PropTypes.func,
+		pressInDrag:PropTypes.func,
+		pressOutDrag:PropTypes.func
 	};
 	componentWillMount() {
 		if(this.reverse == false)
@@ -159,5 +160,4 @@ export default class Draggable extends Component {
 		);
 	}
 }
-
 
