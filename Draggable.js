@@ -76,7 +76,7 @@ export default class Draggable extends Component {
 			}]),
 			onPanResponderRelease: (e, gestureState) => {
 				if(pressDragRelease)
-					pressDragRelease();
+					pressDragRelease(e, gestureState);
 				if(this.reverse == false)
 					this.state.pan.flattenOffset();
 				else {
