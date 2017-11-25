@@ -25,7 +25,7 @@ export default class Draggable extends Component {
 		imageSource:PropTypes.number,
 		offsetX:PropTypes.number,
 		offsetY:PropTypes.number,
-		renderCorlor:PropTypes.string,
+		renderColor:PropTypes.string,
 		reverse:PropTypes.bool,
 		pressDrag:PropTypes.func,
 		pressDragRelease:PropTypes.func,
