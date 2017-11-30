@@ -80,10 +80,7 @@ export default class Draggable extends Component {
 				if(this.reverse == false)
 					this.state.pan.flattenOffset();
 				else {
-					Animated.spring(            
-						this.state.pan,         
-						{toValue:{x:0,y:0}}     
-					).start();
+					this.reverse();
 				}
 			} 
 		});
@@ -137,6 +134,13 @@ export default class Draggable extends Component {
 			return (<Text style={this._dragItemTextCss(this.renderSize)}>{this.renderText}</Text>);
 		}
 
+	}
+	
+	reverse = () => {
+		Animated.spring(            
+			this.state.pan,         
+			{toValue:{x:0,y:0}}     
+		).start();
 	}
 
 	render() {
