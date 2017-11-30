@@ -79,16 +79,12 @@ export default class Draggable extends Component {
 					pressDragRelease(e, gestureState);
 				if(this.reverse == false)
 					this.state.pan.flattenOffset();
-				else {
-					Animated.spring(            
-						this.state.pan,         
-						{toValue:{x:0,y:0}}     
-					).start();
-				}
+				else 
+					this.reversePosition();
 			} 
 		});
 	}
-	_positionCss = (size,x,y)=>{
+	_positionCss = (size,x,y) =>{
 		let Window = Dimensions.get('window');
 		return {
 			zIndex:999,
@@ -98,7 +94,7 @@ export default class Draggable extends Component {
 
 		};
 	}
-	_dragItemCss = (size,color,shape)=>{
+	_dragItemCss = (size,color,shape) =>{
 		if(shape == 'circle') {
 			return{
 				backgroundColor: color,
@@ -120,7 +116,7 @@ export default class Draggable extends Component {
 			};
 		}
 	}
-	_dragItemTextCss = (size)=>{
+	_dragItemTextCss = (size) =>{
 		return {
 			marginTop: size-10,
 			marginLeft: 5,
@@ -137,6 +133,13 @@ export default class Draggable extends Component {
 			return (<Text style={this._dragItemTextCss(this.renderSize)}>{this.renderText}</Text>);
 		}
 
+	}
+	
+	reversePosition = () =>{
+		Animated.spring(            
+			this.state.pan,         
+			{toValue:{x:0,y:0}}     
+		).start();
 	}
 
 	render() {
