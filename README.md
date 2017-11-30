@@ -57,7 +57,7 @@ return (
 | renderSize | number | {36} | draggable size |
 | offsetX | number |{0}| offsetX with center |
 | offsetY | number |{100}| offsetY with center |
-| renderCorlor | string | 'black' | [Colors](https://facebook.github.io/react-native/docs/colors.html)|
+| renderColor | string | 'black' | [Colors](https://facebook.github.io/react-native/docs/colors.html)|
 | reverse | bool | {true} | reverse flag |
 
 ## Events
