@@ -48,21 +48,31 @@ return (
 
 
 # Props spec & Example
-## Shape & Location
-* renderText:React.PropTypes.string => text of draggable item {'ABC'}
-* renderShape:React.PropTypes.string => shape type, 'circle' 'square' 'image'
-* imageSource:React.PropTypes.source => require('./img/xxx.png')
-* renderSize:React.PropTypes.number =>draggable size {36} 
-* offsetX:React.PropTypes.number => offsetX with center {0}
-* offsetY:React.PropTypes.number => offsetY with center {100}
-* renderCorlor:React.PropTypes.string => [Colors](https://facebook.github.io/react-native/docs/colors.html)
-* reverse:React.PropTypes.bool => reverse to initial position {true}
-## Event
-* pressDrag:React.PropTypes.func => onPress event
-* pressDragRelease:React.PropTypes.func,=> release drag event
-* longPressDrag:React.PropTypes.func,=> long press event
-* pressInDrag:React.PropTypes.func,=> in press event
-* pressOutDrag:React.PropTypes.func=> out press event
+## Properties
+| Prop | Type | Example | Description |
+| :------------ |:---------------:| :---------------:| :-----|
+| renderText | string | 'ANY' | text of draggable |
+| renderShape | string |'circle' 'square' 'image'| shape type |
+| imageSource | source | require('./img/xxx.png') | image source|
+| renderSize | number | {36} | draggable size |
+| offsetX | number |{0}| offsetX with center |
+| offsetY | number |{100}| offsetY with center |
+| renderCorlor | string | black | [Colors](https://facebook.github.io/react-native/docs/colors.html)|
+| reverse | bool | {true} | reverse flag |
+
+## Events
+| Event | Type | Description |
+| :------------ |:---------------:|:-----|
+| pressDrag | func | onPress event |
+| pressDragRelease | func | release drag event |
+| longPressDrag | func | long press event |
+| pressInDrag | func | in press event |
+| pressOutDrag | func | out press event |
+
+## Methods
+| Method | params | Description |
+| :------------ |:---------------:|:-----|
+| reversePosition | --- | manually reset Draggable to start position |
 
 # What's next?
 
