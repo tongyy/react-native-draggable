@@ -49,19 +49,19 @@ return (
 
 # Props spec & Example
 ## Properties
-| Prop | Type | Example | Description |
-| :------------ |:---------------:| :---------------:| :-----|
-| renderText | string | 'ANY' | text of draggable |
-| renderShape | string |'circle' 'square' 'image'| shape type |
-| imageSource | source | require('./img/xxx.png') | image source|
-| renderSize | number | {36} | draggable size |
-| offsetX | number |{0}| offsetX with center |
-| offsetY | number |{100}| offsetY with center |
-| x | number |{0}| position x |
-| y | number |{0}| position y |
-| z | number |{0}| position z |
-| renderColor | string | 'black' | [Colors](https://facebook.github.io/react-native/docs/colors.html)|
-| reverse | bool | {true} | reverse flag |
+| Prop | Type | Example | Default | Description |
+| :------------ |:---------------:|:---------------:|:---------------:|:-----|
+| renderText | string | 'ANY' | '+' | text of draggable |
+| renderShape | string |'circle' , 'square' , 'image'| 'circle' | shape type |
+| imageSource | source | require('./img/xxx.png') | --- | image source|
+| renderSize | number | {36} | {36} | draggable size |
+| offsetX | number |{0}| {100} | offsetX with center |
+| offsetY | number |{100}| {100} | offsetY with center |
+| x | number |{0}| --- | position x |
+| y | number |{0}| --- | position y |
+| z | number |{0}| --- | position z |
+| renderColor | string | 'black' | 'yellowgreen' | [Colors](https://facebook.github.io/react-native/docs/colors.html)|
+| reverse | bool | {true} | {true} | reverse flag |
 
 ## Events
 | Event | Type | Description |
