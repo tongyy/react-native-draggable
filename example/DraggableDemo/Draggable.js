@@ -24,37 +24,38 @@ export default class Draggable extends Component {
 		imageSource:React.PropTypes.number,
 		offsetX:React.PropTypes.number,
 		offsetY:React.PropTypes.number,
-		renderCorlor:React.PropTypes.string,
+		renderColor:React.PropTypes.string,
 		reverse:React.PropTypes.bool,
 		pressDrag:React.PropTypes.func,
 		pressDragRelease:React.PropTypes.func,
 		longPressDrag:React.PropTypes.func,
 		pressInDrag:React.PropTypes.func,
-		pressOutDrag:React.PropTypes.func
+		pressOutDrag:React.PropTypes.func,
+		z:React.PropTypes.number,
+		x:React.PropTypes.number,
+		y:React.PropTypes.number
+		
 	};
+	static defaultProps = {
+		offsetX : 100,
+		renderShape : 'circle',
+		renderColor : 'yellowgreen',
+		renderText : '＋',
+		renderSize : 36,
+		offsetY : 100,
+		reverse : true
+	}
+
 	componentWillMount() {
-		if(this.reverse == false)
+		if(this.props.reverse == false)
 			this.state.pan.addListener((c) => this.state._value = c);
 	}
 	componentWillUnmount() {
 		this.state.pan.removeAllListeners();
 	}
-	constructor(props) {
-		super(props);
-		const { pressDrag, pressDragRelease, longPressDrag, pressInDrag, pressOutDrag, imageSource,
-			renderText, renderShape, renderSize, renderColor, offsetX, offsetY, reverse} = props;
-		this.pressDrag = pressDrag;
-		this.pressInDrag = pressInDrag;
-		this.pressOutDrag = pressOutDrag;
-		this.longPressDrag = longPressDrag;
-		this.renderShape = renderShape ? renderShape : 'circle';
-		this.renderColor = renderColor ? renderColor : 'yellowgreen';
-		this.renderText = renderText ? renderText : '＋';
-		this.renderSize = renderSize ? renderSize : 36;
-		this.imageSource = imageSource;
-		this.offsetX = offsetX!=null ? offsetX : 100;
-		this.offsetY = offsetY!=null ? offsetY : 100;
-		this.reverse = reverse!=null ? reverse : true;
+	constructor(props, defaultProps) {
+		super(props, defaultProps);
+		const { pressDragRelease, reverse } = props;
 		this.state = {
 			pan:new Animated.ValueXY(), 
 			_value:{x: 0, y: 0}
@@ -64,7 +65,7 @@ export default class Draggable extends Component {
 			onMoveShouldSetPanResponder: (evt, gestureState) => true,
 			onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
 			onPanResponderGrant: (e, gestureState) => {
-				if(this.reverse == false) {
+				if(reverse == false) {
 					this.state.pan.setOffset({x: this.state._value.x, y: this.state._value.y});
 					this.state.pan.setValue({x: 0, y: 0});
 				}
@@ -76,81 +77,91 @@ export default class Draggable extends Component {
 			onPanResponderRelease: (e, gestureState) => {
 				if(pressDragRelease)
 					pressDragRelease();
-				if(this.reverse == false)
+				if(reverse == false)
 					this.state.pan.flattenOffset();
-				else {
-					Animated.spring(            
-						this.state.pan,         
-						{toValue:{x:0,y:0}}     
-					).start();
-				}
+				else 
+					this.reversePosition();
 			} 
 		});
 	}
-	_positionCss = (size,x,y)=>{
+	
+	_positionCss = () => {
 		let Window = Dimensions.get('window');
+		const { renderSize, offsetX, offsetY, x, y, z } = this.props;
 		return {
-			zIndex:999,
+			zIndex: z != null ? z : 999,
 			position: 'absolute',
-			top: Window.height/2 - size+y,
-			left: Window.width/2 - size+x,
+			top: y != null ? y : (Window.height / 2 - renderSize + offsetY),
+			left: x !=null ? x : (Window.width / 2 - renderSize + offsetX)
 
 		};
 	}
-	_dragItemCss = (size,color,shape)=>{
-		if(shape == 'circle') {
+
+	_dragItemCss = () => {
+		const { renderShape, renderSize, renderColor } = this.props;
+		if(renderShape == 'circle') {
 			return{
-				backgroundColor: color,
-				width: size*2,
-				height: size*2,
-				borderRadius: size 
+				backgroundColor: renderColor,
+				width: renderSize * 2,
+				height: renderSize * 2,
+				borderRadius: renderSize 
 			};
-		}else if(shape == 'square') {
+		}else if(renderShape == 'square') {
 			return{
-				backgroundColor: color,
-				width: size*2,
-				height: size*2,
+				backgroundColor: renderColor,
+				width: renderSize * 2,
+				height: renderSize * 2,
 				borderRadius: 0 
 			};
-		}else if(shape == 'image') {
+		}else if(renderShape == 'image') {
 			return{
-				width: size,
-				height: size
+				width: renderSize,
+				height: renderSize 
 			};
 		}
 	}
-	_dragItemTextCss = (size)=>{
+	_dragItemTextCss = () => {
+		const { renderSize } = this.props;
 		return {
-			marginTop: size-10,
+			marginTop: renderSize-10,
 			marginLeft: 5,
 			marginRight: 5,
 			textAlign: 'center',
 			color: '#fff'
 		};
 	}
-	_getTextOrImage = () =>{
-		if(this.renderShape == 'image') {
-			this.imageSource = this.props.imageSource;
-			return(<Image style={this._dragItemCss(this.renderSize,null,'image')} source={this.imageSource}/>);
+	_getTextOrImage = () => {
+		const { renderSize, renderShape, renderText, imageSource } = this.props;
+		if(renderShape == 'image') {
+			return(<Image style={this._dragItemCss(renderSize, null, 'image')} source={imageSource}/>);
 		}else{
-			return (<Text style={this._dragItemTextCss(this.renderSize)}>{this.renderText}</Text>);
+			return (<Text style={this._dragItemTextCss(renderSize)}>{renderText}</Text>);
 		}
 
 	}
 
+	reversePosition = () => {
+		Animated.spring(            
+			this.state.pan,         
+			{toValue:{x:0,y:0}}     
+		).start();
+	}
+
 	render() {
 		const touchableContent = this._getTextOrImage();
+		const { pressDrag, longPressDrag, pressInDrag, pressOutDrag } = this.props;
+
 		return (
-			<View style={this._positionCss(this.renderSize,this.offsetX,this.offsetY)}>
+			<View style={this._positionCss()}>
 				<Animated.View 
 					{...this.panResponder.panHandlers}
-					style={[this.state.pan.getLayout(), this._dragItemCss(this.renderSize)]}>
+					style={[this.state.pan.getLayout()]}>
 					<TouchableOpacity 
-						style={this._dragItemCss(this.renderSize,this.renderColor,this.renderShape)}
-						onPress={this.pressDrag}
-						onLongPress={this.longPressDrag}
-						onPressIn={this.pressInDrag}
-						onPressOut={this.pressOutDrag}
+						style={this._dragItemCss()}
+						onPress={pressDrag}
+						onLongPress={longPressDrag}
+						onPressIn={pressInDrag}
+						onPressOut={pressOutDrag}
 					>
 						{touchableContent}	
 					</TouchableOpacity>

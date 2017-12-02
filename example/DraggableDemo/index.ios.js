@@ -29,8 +29,12 @@ export default class DraggableDemo extends Component {
 	render() {
 		return (
 			<View style={{backgroundColor: 'blue', flex: 0.5}} >
+				<Draggable x={0} y={0} />
+				<Draggable reverse={false} ref={(draggable) => {this.exampleRef = draggable;}} 
+					pressDrag={()=>this.exampleRef.reversePosition()} renderShape='square' renderColor='red' offsetX={0} offsetY={0} renderText='B'/>
+				<Draggable renderSize={56} renderColor='black' offsetX={-100} offsetY={-200} renderText='A' pressDrag={()=>alert('touched!!')}/> 
 				<Draggable renderShape='image' imageSource={this.state.source} renderSize={80} 
-					offsetX={0} offsetY={0}
+					offsetY={0}
 					pressDragRelease={this._changeFace}
 					longPressDrag={()=>console.log('long press')}
 					pressDrag={()=>console.log('press drag')}
