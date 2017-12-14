@@ -14,26 +14,27 @@ import {
 	Dimensions,
 	TouchableOpacity
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 
 export default class Draggable extends Component {
 	static propTypes = {
-		renderText:React.PropTypes.string,
-		renderShape:React.PropTypes.string,
-		renderSize:React.PropTypes.number,
-		imageSource:React.PropTypes.number,
-		offsetX:React.PropTypes.number,
-		offsetY:React.PropTypes.number,
-		renderColor:React.PropTypes.string,
-		reverse:React.PropTypes.bool,
-		pressDrag:React.PropTypes.func,
-		pressDragRelease:React.PropTypes.func,
-		longPressDrag:React.PropTypes.func,
-		pressInDrag:React.PropTypes.func,
-		pressOutDrag:React.PropTypes.func,
-		z:React.PropTypes.number,
-		x:React.PropTypes.number,
-		y:React.PropTypes.number
+		renderText:PropTypes.string,
+		renderShape:PropTypes.string,
+		renderSize:PropTypes.number,
+		imageSource:PropTypes.number,
+		offsetX:PropTypes.number,
+		offsetY:PropTypes.number,
+		renderColor:PropTypes.string,
+		reverse:PropTypes.bool,
+		pressDrag:PropTypes.func,
+		pressDragRelease:PropTypes.func,
+		longPressDrag:PropTypes.func,
+		pressInDrag:PropTypes.func,
+		pressOutDrag:PropTypes.func,
+		z:PropTypes.number,
+		x:PropTypes.number,
+		y:PropTypes.number
 		
 	};
 	static defaultProps = {
@@ -76,7 +77,7 @@ export default class Draggable extends Component {
 			}]),
 			onPanResponderRelease: (e, gestureState) => {
 				if(pressDragRelease)
-					pressDragRelease();
+					pressDragRelease(e, gestureState);
 				if(reverse == false)
 					this.state.pan.flattenOffset();
 				else 
