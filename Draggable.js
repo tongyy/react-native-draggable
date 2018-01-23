@@ -1,10 +1,11 @@
 /**
- *  * https://github.com/tongyy/react-native-draggable
+ *	* https://github.com/tongyy/react-native-draggable
  * 
  */
 
 import React, { Component } from 'react';
 import {
+	Platform,
 	StyleSheet,
 	View,
 	Text,
@@ -62,7 +63,7 @@ export default class Draggable extends Component {
 			_value:{x: 0, y: 0}
 		};
 
-		this.panResponder = PanResponder.create({    
+		this.panResponder = PanResponder.create({		
 			onMoveShouldSetPanResponder: (evt, gestureState) => true,
 			onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
 			onPanResponderGrant: (e, gestureState) => {
@@ -89,13 +90,21 @@ export default class Draggable extends Component {
 	_positionCss = () => {
 		let Window = Dimensions.get('window');
 		const { renderSize, offsetX, offsetY, x, y, z } = this.props;
-		return {
-			zIndex: z != null ? z : 999,
-			position: 'absolute',
-			top: y != null ? y : (Window.height / 2 - renderSize + offsetY),
-			left: x !=null ? x : (Window.width / 2 - renderSize + offsetX)
-
-		};
+		return Platform.select({
+			ios: {
+				zIndex: z != null ? z : 999,
+				position: 'absolute',
+				top: y != null ? y : (Window.height / 2 - renderSize + offsetY),
+				left: x !=null ? x : (Window.width / 2 - renderSize + offsetX)
+			},
+			android: {
+				position: 'absolute',
+				width:Window.width,
+				height:Window.height,
+				top: y != null ? y : (Window.height / 2 - renderSize + offsetY),
+				left: x !=null ? x : (Window.width / 2 - renderSize + offsetX)
+			},
+		});
 	}
 
 	_dragItemCss = () => {
@@ -142,9 +151,9 @@ export default class Draggable extends Component {
 	}
 
 	reversePosition = () => {
-		Animated.spring(            
-			this.state.pan,         
-			{toValue:{x:0,y:0}}     
+		Animated.spring(						
+			this.state.pan,				 
+			{toValue:{x:0,y:0}}		 
 		).start();
 	}
 
