@@ -23,7 +23,12 @@ export default class Draggable extends Component {
 		renderText:PropTypes.string,
 		renderShape:PropTypes.string,
 		renderSize:PropTypes.number,
-		imageSource:PropTypes.number,
+		imageSource:PropTypes.oneOfType([
+			PropTypes.shape({
+				uri: PropTypes.string,
+			}),
+			PropTypes.number
+		]), 
 		offsetX:PropTypes.number,
 		offsetY:PropTypes.number,
 		renderColor:PropTypes.string,
