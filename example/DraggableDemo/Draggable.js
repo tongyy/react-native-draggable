@@ -34,6 +34,7 @@ export default class Draggable extends Component {
 		renderColor:PropTypes.string,
 		reverse:PropTypes.bool,
 		pressDrag:PropTypes.func,
+		onMove:PropTypes.func,
 		pressDragRelease:PropTypes.func,
 		longPressDrag:PropTypes.func,
 		pressInDrag:PropTypes.func,
@@ -62,10 +63,13 @@ export default class Draggable extends Component {
 	}
 	constructor(props, defaultProps) {
 		super(props, defaultProps);
-		const { pressDragRelease, reverse } = props;
+		const { pressDragRelease, reverse, onMove } = props;
 		this.state = {
 			pan:new Animated.ValueXY(), 
-			_value:{x: 0, y: 0}
+			_value:{
+				x: 0, 
+				y: 0
+			}
 		};
 
 		this.panResponder = PanResponder.create({		
@@ -80,7 +84,7 @@ export default class Draggable extends Component {
 			onPanResponderMove: Animated.event([null,{ 
 				dx:this.state.pan.x,
 				dy:this.state.pan.y
-			}]),
+			}], {listener: onMove}),
 			onPanResponderRelease: (e, gestureState) => {
 				if(pressDragRelease)
 					pressDragRelease(e, gestureState);
@@ -160,6 +164,15 @@ export default class Draggable extends Component {
 			this.state.pan,				 
 			{toValue:{x:0,y:0}}		 
 		).start();
+	}
+
+	getPosition = () => {
+		return { 
+			offsetX: this.state._value.x,
+			offsetY: this.state._value.y,
+			x: this.state._value.x + this.props.x,
+			y: this.state._value.y + this.props.y 
+		};
 	}
 
 	render() {
