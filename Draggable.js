@@ -66,7 +66,10 @@ export default class Draggable extends Component {
 		const { pressDragRelease, reverse, onMove } = props;
 		this.state = {
 			pan:new Animated.ValueXY(), 
-			_value:{x: 0, y: 0}
+			_value:{
+				x: 0, 
+				y: 0
+			}
 		};
 
 		this.panResponder = PanResponder.create({		
@@ -161,6 +164,15 @@ export default class Draggable extends Component {
 			this.state.pan,				 
 			{toValue:{x:0,y:0}}		 
 		).start();
+	}
+
+	getPosition = () => {
+		return { 
+			offsetX: this.state._value.x,
+			offsetY: this.state._value.y,
+			x: this.state._value.x + this.props.x,
+			y: this.state._value.y + this.props.y 
+		};
 	}
 
 	render() {

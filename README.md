@@ -76,6 +76,7 @@ return (
 | Method | params | Description |
 | :------------ |:---------------:|:-----|
 | reversePosition | --- | manually reset Draggable to start position |
+| getPosition| --- |get the value of x, y, offsetX, offsetY|
 
 # What's next?
 
