@@ -41,8 +41,7 @@ export default class Draggable extends Component {
 		pressOutDrag:PropTypes.func,
 		z:PropTypes.number,
 		x:PropTypes.number,
-		y:PropTypes.number,
-		childElement: PropTypes.element
+		y:PropTypes.number
 		
 	};
 	static defaultProps = {
@@ -52,8 +51,7 @@ export default class Draggable extends Component {
 		renderText : '＋',
 		renderSize : 36,
 		offsetY : 100,
-		reverse : true,
-		childElement : null
+		reverse : true
 	}
 
 	componentWillMount() {
@@ -152,14 +150,14 @@ export default class Draggable extends Component {
 		};
 	}
 	_getTextOrImage = () => {
-		const { renderSize, renderShape, renderText, imageSource, childElement } = this.props;
+		const { renderSize, renderShape, renderText, imageSource, children } = this.props;
 		if(renderShape == 'image') {
 			return(<Image style={this._dragItemCss(renderSize, null, 'image')} source={imageSource}/>);
 		}else{
-			if(childElement===null)
+			if(children===null)
 				return (<Text style={this._dragItemTextCss(renderSize)}>{renderText}</Text>);
 			else
-				return (childElement)
+				return (children)
 		}
 
 	}
