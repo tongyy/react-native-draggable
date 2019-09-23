@@ -19,9 +19,9 @@ return (
         <Draggable renderSize={56} renderColor='black' offsetX={-100} offsetY={-200} renderText='A' pressDrag={()=>alert('touched!!')}/> 
         <Draggable reverse={false} renderColor='red' renderShape='square' offsetX={0} offsetY={0} renderText='B'/>
         <Draggable/>
-		<Draggable x={50} y={50}>
-			<YourComponent/>
-		</Draggable>
+	<Draggable x={50} y={50}>
+		<YourComponent/>
+	</Draggable>
     </View>
 );
 ```
