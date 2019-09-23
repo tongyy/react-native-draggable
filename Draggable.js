@@ -152,7 +152,6 @@ export default class Draggable extends Component {
 	}
 	_getTouchableContent = () => {
 		const { renderSize, renderShape, renderText, imageSource, children } = this.props;
-		console.log(this.props);
 		if(children) 
 			return children;
 		else if(renderShape == 'image')
