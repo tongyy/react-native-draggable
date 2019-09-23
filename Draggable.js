@@ -150,12 +150,13 @@ export default class Draggable extends Component {
 		};
 	}
 	_getTextOrImage = () => {
-		const { renderSize, renderShape, renderText, imageSource } = this.props;
-		if(renderShape == 'image') {
+		const { renderSize, renderShape, renderText, imageSource, children } = this.props;
+		if(renderShape == 'image')
 			return(<Image style={this._dragItemCss(renderSize, null, 'image')} source={imageSource}/>);
-		}else{
+		else if(children===null)
 			return (<Text style={this._dragItemTextCss(renderSize)}>{renderText}</Text>);
-		}
+		else
+			return (children);
 
 	}
 
