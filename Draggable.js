@@ -22,6 +22,7 @@ export default class Draggable extends Component {
 	static propTypes = {
 		renderText:PropTypes.string,
 		renderShape:PropTypes.string,
+		renderChildren:PropTypes.any,
 		renderSize:PropTypes.number,
 		imageSource:PropTypes.oneOfType([
 			PropTypes.shape({
@@ -149,14 +150,15 @@ export default class Draggable extends Component {
 			color: '#fff'
 		};
 	}
-	_getTextOrImage = () => {
+	_getTouchableContent = () => {
 		const { renderSize, renderShape, renderText, imageSource, children } = this.props;
-		if(renderShape == 'image')
+		console.log(this.props);
+		if(children) 
+			return children;
+		else if(renderShape == 'image')
 			return(<Image style={this._dragItemCss(renderSize, null, 'image')} source={imageSource}/>);
-		else if(children===null)
-			return (<Text style={this._dragItemTextCss(renderSize)}>{renderText}</Text>);
 		else
-			return (children);
+			return (<Text style={this._dragItemTextCss(renderSize)}>{renderText}</Text>);
 
 	}
 
@@ -177,7 +179,6 @@ export default class Draggable extends Component {
 	}
 
 	render() {
-		const touchableContent = this._getTextOrImage();
 		const { pressDrag, longPressDrag, pressInDrag, pressOutDrag } = this.props;
 
 		return (
@@ -192,7 +193,7 @@ export default class Draggable extends Component {
 						onPressIn={pressInDrag}
 						onPressOut={pressOutDrag}
 					>
-						{touchableContent}	
+						{this._getTouchableContent()}	
 					</TouchableOpacity>
 				</Animated.View>
 			</View>

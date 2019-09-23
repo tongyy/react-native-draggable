@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 //import Draggable from 'react-native-draggable';
 import Draggable from './Draggable';//first, run "npm run source" to get Draggable.js
-
+import MyComponent from './MyComponent';
 export default class DraggableDemo extends Component {
 	constructor(props) {
 		super(props);
@@ -31,9 +31,13 @@ export default class DraggableDemo extends Component {
 	}
 	render() {
 		let i = 1;
+		let child = ()=>(<Text> hello </Text>);
 		return (
 			<View >
 				<Draggable x={0} y={0} />
+				<Draggable x={50} y={0}>
+					<MyComponent/>
+				</Draggable>
 				<Draggable 
 					reverse={false} 
 					ref={(draggable) => {this.exampleRef= {};this.exampleRef[i] = draggable;}} 
