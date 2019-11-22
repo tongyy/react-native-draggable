@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "run-ios": "react-native run-ios",
+    "ios": "react-native run-ios",
+    "android": "node node_modules/react-native/local-cli/cli.js run-android",
     "test": "jest",
     "target": "cp Draggable.js ../../Draggable.js",
     "source": "cp ../../Draggable.js ."
