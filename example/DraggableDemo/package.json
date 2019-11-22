@@ -3,23 +3,26 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "android": "node node_modules/react-native/local-cli/cli.js run-android",
+    "start": "react-native start",
     "test": "jest",
-    "target": "cp Draggable.js ../../Draggable.js",
+    "lint": "eslint . --fix",
     "source": "cp ../../Draggable.js ."
   },
   "dependencies": {
-    "prop-types": "^15.6.0",
-    "react": "16.0.0-alpha.6",
-    "react-native": "0.44.0"
+    "react": "16.9.0",
+    "react-native": "0.61.4"
   },
   "devDependencies": {
-    "babel-jest": "20.0.0",
-    "babel-preset-react-native": "1.9.1",
-    "jest": "20.0.0",
-    "react-test-renderer": "16.0.0-alpha.6"
+    "@babel/core": "^7.6.2",
+    "@babel/runtime": "^7.6.2",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.5.1",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.56.0",
+    "react-test-renderer": "16.9.0"
   },
   "jest": {
     "preset": "react-native"
