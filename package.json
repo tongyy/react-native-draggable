@@ -28,8 +28,7 @@
   "jest": {
     "modulePathIgnorePatterns": [
       "<rootDir>/example/"
-    ],
-    "preset": "react-native"
+    ]
   },
   "keywords": [
     "react-native",
