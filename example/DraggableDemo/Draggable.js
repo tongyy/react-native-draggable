@@ -38,9 +38,8 @@ export default function Draggable(props) {
     y,
   } = props;
 
-  const [value, setValue] = React.useState({x: 0, y: 0});
-
   const pan = React.useRef(new Animated.ValueXY()).current;
+  const value = React.useRef({x: 0, y: 0});
 
   const onPanResponderMove = Animated.event([null, {dx: pan.x, dy: pan.y}], {
     listener: onMove,
@@ -67,11 +66,11 @@ export default function Draggable(props) {
   const onPanResponderGrant = React.useCallback(
     (e, gestureState) => {
       if (!reverse) {
-        pan.setOffset({x: value.x, y: value.y});
+        pan.setOffset(value.current);
         pan.setValue({x: 0, y: 0});
       }
     },
-    [pan, reverse, value.x, value.y],
+    [pan, reverse],
   );
 
   const panResponder = React.useMemo(() => {
@@ -86,7 +85,7 @@ export default function Draggable(props) {
 
   React.useEffect(() => {
     if (!reverse) {
-      pan.addListener(c => setValue(c));
+      pan.addListener(c => (value.current = c));
     }
     return () => {
       pan.removeAllListeners();
