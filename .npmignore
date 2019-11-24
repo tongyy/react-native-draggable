@@ -54,3 +54,5 @@ fastlane/screenshots
 
 #example
 example/
+demo/
+__tests__/
