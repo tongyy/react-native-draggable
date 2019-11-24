@@ -1,32 +1,39 @@
 {
   "name": "react-native-draggable",
-  "version": "1.0.20",
+  "version": "2.0.0",
   "description": "draggable",
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint Draggable.js"
+    "lint": "eslint Draggable.js --fix"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tongyy/react-native-draggable.git"
   },
   "dependencies": {
-    "prop-types": "^15.6.0"
+    "prop-types": "^15.7.2"
   },
   "devDependencies": {
-    "babel-jest": "20.0.0",
-    "babel-preset-react-native": "1.9.1",
-    "jest": "20.0.0",
-    "react-test-renderer": "16.0.0-alpha.6",
-    "react": "16.0.0-alpha.6",
-    "react-native": "0.44.0"
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-transform-flow-strip-types": "^7.7.4",
+    "@react-native-community/eslint-config": "0.0.5",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.7.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-react": "^7.16.0",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.57.0",
+    "react": "16.9.0",
+    "react-native": "^0.61.5",
+    "react-test-renderer": "^16.12.0"
   },
   "jest": {
+    "preset": "react-native",
     "modulePathIgnorePatterns": [
       "<rootDir>/example/"
-    ],
-    "preset": "react-native"
+    ]
   },
   "keywords": [
     "react-native",
