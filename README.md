@@ -75,7 +75,7 @@ return (
 | pressInDrag | func | event | in press event |
 | pressOutDrag | func | event | out press event |
 
-## Methods (deprecated by version 1.0.21)
+## Methods (not supported above V2.0.0)
 | Method | params | Description |
 | :------------ |:---------------:|:-----|
 | reversePosition | --- | manually reset Draggable to start position |
