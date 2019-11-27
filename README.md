@@ -67,19 +67,19 @@ return (
 | reverse | bool | {true} | {true} | reverse flag |
 
 ## Events
-| Event | Type | Description |
-| :------------ |:---------------:|:-----|
-| pressDrag | func | onPress event |
-| pressDragRelease | func | release drag event |
-| longPressDrag | func | long press event |
-| pressInDrag | func | in press event |
-| pressOutDrag | func | out press event |
+| Event | Type | Arguments| Description |
+| :------------ |:---------------:|:---------------:|:-----|
+| pressDrag | func | event| onPress event |
+| pressDragRelease | func | event, position| release drag event |
+| longPressDrag | func | event | long press event |
+| pressInDrag | func | event | in press event |
+| pressOutDrag | func | event | out press event |
 
-## Methods
+## Methods (deprecated by version 1.0.21)
 | Method | params | Description |
 | :------------ |:---------------:|:-----|
 | reversePosition | --- | manually reset Draggable to start position |
-| getPosition| --- |get the value of x, y, offsetX, offsetY|
+| getPosition| --- |**use pressDragRelease callback instead.**  get the value of x, y, offsetX, offsetY|
 
 # What's next?
 
