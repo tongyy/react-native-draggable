@@ -29,5 +29,5 @@ const styles = StyleSheet.create({
   },
   child: {
     flexDirection: 'row',
-  }
+  },
 });
