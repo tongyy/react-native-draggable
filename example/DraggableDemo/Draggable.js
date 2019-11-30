@@ -227,7 +227,7 @@ Draggable.defaultProps = {
   renderColor: 'yellowgreen',
   renderText: '＋',
   renderSize: 36,
-  reverse: false,
+  shouldReverse: false,
   x: 0,
   y: 0,
   z: 1,
@@ -242,7 +242,7 @@ Draggable.propTypes = {
   imageSource: PropTypes.number,
   renderColor: PropTypes.string,
   /**** */
-  children: PropTypes.any,
+  children: PropTypes.element,
   shouldReverse: PropTypes.bool,
   disabled: PropTypes.bool,
   onDrag: PropTypes.func,

@@ -16,8 +16,8 @@ How to use
 ```
 return (
     <View >
-        <Draggable renderSize={56} renderColor='black' offsetX={-100} offsetY={-200} renderText='A' pressDrag={()=>alert('touched!!')}/> 
-        <Draggable reverse={false} renderColor='red' renderShape='square' offsetX={0} offsetY={0} renderText='B'/>
+        <Draggable x={75} y={100} renderSize={56} renderColor='black' renderText='A' isCircle shouldReverse onShortPressRelease={()=>alert('touched!!')}/> 
+        <Draggable x={200} y={300} renderColor='red' renderText='B'/>
         <Draggable/>
 	<Draggable x={50} y={50}>
 		<YourComponent/>
@@ -32,14 +32,17 @@ in my project => <img src="https://raw.githubusercontent.com/tongyy/react-native
 
 ```
 return (
-    <View style={{backgroundColor: 'blue', flex: 0.5}} >
-        <Draggable renderShape='image' imageSource={this.state.source} renderSize={80} 
-            offsetX={0} offsetY={0}
-            pressDragRelease={this._changeFace}
-            longPressDrag={()=>console.log('long press')}
-            pressDrag={()=>console.log('press drag')}
-            pressInDrag={()=>console.log('in press')}
-            pressOutDrag={()=>console.log('out press')}
+    <View style={{backgroundColor: 'blue', flex: 1}} >
+        <Draggable 
+            imageSource={require('./trump1.png')} 
+            renderSize={80} 
+            x={200}
+            y={300}
+            onDragRelease={this._changeFace}
+            onLongPress={()=>console.log('long press')}
+            onShortPressRelease={()=>console.log('press drag')}
+            onPressIn={()=>console.log('in press')}
+            onPressOut={()=>console.log('out press')}
         />  
     </View>
 );  
@@ -49,31 +52,40 @@ return (
 
 ![DEMO2](https://raw.githubusercontent.com/tongyy/react-native-draggable/master/demo/demo3.gif)
 
+[Version 3 Demo](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo.gif)
+
+![DEMOV3](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo.gif)
+
 
 # Props spec & Example
 ## Properties
 | Prop | Type | Example | Default | Description |
 | :------------ |:---------------:|:---------------:|:---------------:|:-----|
 | renderText | string | 'ANY' | '+' | text of draggable |
-| renderShape | string |'circle' , 'square' , 'image'| 'circle' | shape type |
-| imageSource | source | require('./img/xxx.png') | --- | image source|
+| isCircle | bool | {true} | --- | render as circle
 | renderSize | number | {36} | {36} | draggable size |
-| offsetX | number |{0}| {100} | offsetX with center |
-| offsetY | number |{100}| {100} | offsetY with center |
-| x | number |{0}| --- | position x |
-| y | number |{0}| --- | position y |
-| z | number |{0}| --- | position z |
+| imageSource | source | require('./img/xxx.png') | --- | image source|
 | renderColor | string | 'black' | 'yellowgreen' | [Colors](https://facebook.github.io/react-native/docs/colors.html)|
-| reverse | bool | {true} | {true} | reverse flag |
+| children | [Component](https://reactjs.org/docs/typechecking-with-proptypes.html#requiring-single-child) | <Text>Sup</Text> | children to render as draggable |
+| shouldReverse | bool | {false} | {false} | reverse flag |
+| disabled | bool | {false} | {false} | disabled flag |
+| x | number |{0}| 0 | initial position x |
+| y | number |{0}| 0 | initial position y |
+| z | number |{1}| 1 | z-index / elevation |
+| minX | number |{0}| --- | min X value for left edge of component |
+| minY | number |{0}| --- | min Y value for top edge of component |
+| maxX | number |{0}| --- | max X value for right edge of component |
+| maxY | number |{0}| --- | max Y value for bottom edge of component |
+| z | number |{1}| 1 | z-index / elevation |
 
 ## Events
 | Event | Type | Description |
 | :------------ |:---------------:|:-----|
-| pressDrag | func | onPress event |
-| pressDragRelease | func | release drag event |
-| longPressDrag | func | long press event |
-| pressInDrag | func | in press event |
-| pressOutDrag | func | out press event |
+| onShortPressRelease | func | onPress event |
+| onDragRelease | func | release drag event |
+| onLongPress | func | long press event |
+| pressIn | func | in press event |
+| pressOut | func | out press event |
 
 ## Methods
 | Method | params | Description |

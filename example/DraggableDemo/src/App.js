@@ -42,7 +42,7 @@ export default function App() {
         renderSize={64}
         x={50}
         y={250}
-        reverse={true}
+        shouldReverse={true}
         onDrag={() => console.log('drag')}
         onShortPressRelease={() => console.log('short press release')}
         onDragRelease={changeFace}
@@ -61,7 +61,7 @@ export default function App() {
         minY={300}
         maxY={300}
         renderText="Constrained Slider"
-        reverse={true}
+        shouldReverse={true}
         onShortPressRelease={() => alert('touched!!')}
       />
       <Button title="You can still press me" />
