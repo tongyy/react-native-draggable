@@ -3,6 +3,7 @@
 
 [![NPM](https://nodei.co/npm/react-native-draggable.png?compact=true)](https://npmjs.org/package/react-native-draggable)
 
+### UPDATE DEC 2019 (v3.0.0) - This repo has just been completely refreshed and contains very different functionality, please see the new props and usage below
 
 Draggable item for react-native!
 
@@ -65,12 +66,12 @@ return (
 | renderSize | number | {36} | {36} | draggable size |
 | imageSource | source | require('./img/xxx.png') | --- | image source|
 | renderColor | string | 'black' | --- | [Colors](https://facebook.github.io/react-native/docs/colors.html)|
-| children | [Component](https://reactjs.org/docs/typechecking-with-proptypes.html#requiring-single-child) | <Text>Sup</Text> | --- | children to render as draggable |
+| children | [Component](https://reactjs.org/docs/typechecking-with-proptypes.html#requiring-single-child) | `<Text>Sup</Text>` | --- | children to render as draggable |
 | shouldReverse | bool | {false} | {false} | should draggable spring back to start when released |
 | disabled | bool | {false} | {false} | should draggable be disabled |
 | debug | bool | {false} | {true} | should show a debug visualization |
 | touchableOpacityProps | [Object](https://facebook.github.io/react-native/docs/touchableopacity#props) | { activeOpactiy: .1 } | --- | props passed to TouchableOpacity component |
-| animatedViewProps | [Object](https://facebook.github.io/react-native/docs/view#props) | { accessibilityHint: 'Wiggle Me!' } | --- | props passed to Animated.View component |
+| animatedViewProps | [Object](https://facebook.github.io/react-native/docs/view#props) | { accessibilityHint: 'drag' } | --- | props passed to Animated.View component |
 | x | number |{0}| 0 | initial position x |
 | y | number |{0}| 0 | initial position y |
 | z | number |{1}| 1 | z-index / elevation |
