@@ -28,14 +28,14 @@ export default function Draggable(props) {
   const {
     renderText,
     isCircle,
-    children,
     renderSize,
     imageSource,
     renderColor,
-    reverse,
+    children,
+    shouldReverse,
     disabled,
-    onShortPressRelease,
     onDrag,
+    onShortPressRelease,
     onDragRelease,
     onLongPress,
     onPressIn,
@@ -49,7 +49,7 @@ export default function Draggable(props) {
     maxY,
   } = props;
 
-  // Using .current because we never re-initialize
+  // The Animated object housing our xy value so that we can spring back
   const pan = React.useRef(new Animated.ValueXY());
   // Always set to xy value of pan, would like to remove
   const offsetFromStart = React.useRef({x: 0, y: 0});
@@ -78,24 +78,24 @@ export default function Draggable(props) {
       if (onDragRelease) {
         onDragRelease(e, gestureState);
       }
-      if (!reverse) {
+      if (!shouldReverse) {
         pan.current.flattenOffset();
       } else {
         reversePosition();
       }
     },
-    [onDragRelease, reverse, reversePosition],
+    [onDragRelease, shouldReverse, reversePosition],
   );
 
   const onPanResponderGrant = React.useCallback(
     (e, gestureState) => {
       startBounds.current = getBounds();
-      if (!reverse) {
+      if (!shouldReverse) {
         pan.current.setOffset(offsetFromStart.current);
         pan.current.setValue({x: 0, y: 0});
       }
     },
-    [getBounds, reverse],
+    [getBounds, shouldReverse],
   );
 
   const handleOnDrag = React.useCallback(
@@ -131,15 +131,16 @@ export default function Draggable(props) {
     });
   }, [disabled, handleOnDrag, onPanResponderGrant, onPanResponderRelease]);
 
+  // TODO Figure out a way to destroy and remove offsetFromStart entirely
   React.useEffect(() => {
     const curPan = pan.current; // Using an instance to avoid losing the pointer before the cleanup
-    if (!reverse) {
+    if (!shouldReverse) {
       curPan.addListener(c => (offsetFromStart.current = c));
     }
     return () => {
       curPan.removeAllListeners();
     };
-  }, [reverse]);
+  }, [shouldReverse]);
 
   const positionCss = React.useMemo(() => {
     const Window = Dimensions.get('window');
@@ -226,7 +227,7 @@ Draggable.defaultProps = {
   renderColor: 'yellowgreen',
   renderText: '＋',
   renderSize: 36,
-  reverse: false,
+  shouldReverse: false,
   x: 0,
   y: 0,
   z: 1,
@@ -241,7 +242,7 @@ Draggable.propTypes = {
   imageSource: PropTypes.number,
   renderColor: PropTypes.string,
   /**** */
-  children: PropTypes.any,
+  children: PropTypes.element,
   shouldReverse: PropTypes.bool,
   disabled: PropTypes.bool,
   onDrag: PropTypes.func,
@@ -252,7 +253,7 @@ Draggable.propTypes = {
   onPressOut: PropTypes.func,
   x: PropTypes.number,
   y: PropTypes.number,
-  // Z/Elevation should be removed because it doesn't sync up visually and haptically
+  // z/elevation should be removed because it doesn't sync up visually and haptically
   z: PropTypes.number,
   minX: PropTypes.number,
   minY: PropTypes.number,
