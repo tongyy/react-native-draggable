@@ -79,19 +79,19 @@ return (
 | z | number |{1}| 1 | z-index / elevation |
 
 ## Events
-| Event | Type | Description |
-| :------------ |:---------------:|:-----|
-| onShortPressRelease | func | onPress event |
-| onDragRelease | func | release drag event |
-| onLongPress | func | long press event |
-| pressIn | func | in press event |
-| pressOut | func | out press event |
+| Event | Type | Arguments| Description |
+| :------------ |:---------------:|:---------------:|:-----|
+| onShortPressRelease | func | event | onPress event |
+| onDragRelease | func | event, position | release drag event |
+| onLongPress | func | event | long press event |
+| onPressIn | func | event | in press event |
+| onPressOut | func | event | out press event |
 
-## Methods
+## Methods (not supported above V2.0.0)
 | Method | params | Description |
 | :------------ |:---------------:|:-----|
 | reversePosition | --- | manually reset Draggable to start position |
-| getPosition| --- |get the value of x, y, offsetX, offsetY|
+| getPosition| --- |**use pressDragRelease callback instead.**  get the value of x, y, offsetX, offsetY|
 
 # What's next?
 
