@@ -30,6 +30,7 @@ export default function Draggable(props) {
     children,
     shouldReverse,
     disabled,
+    debug,
     animatedViewProps,
     touchableOpacityProps,
     onDrag,
@@ -227,8 +228,28 @@ export default function Draggable(props) {
     [onPressOut, onRelease],
   );
 
+  const getDebugView = React.useCallback(() => {
+    const {width, height} = Dimensions.get('window');
+    const far = 9999;
+    const constrained = minX || maxX || minY || maxY;
+    if (!constrained) {
+      return null;
+    } // could show other debug info here
+    const left = minX || -far;
+    const right = maxX ? width - maxX : -far;
+    const top = minY || -far;
+    const bottom = maxY ? height - maxY : -far;
+    return (
+      <View
+        pointerEvents="box-none"
+        style={{left, right, top, bottom, ...styles.debugView}}
+      />
+    );
+  }, [maxX, maxY, minX, minY]);
+
   return (
     <View pointerEvents="box-none" style={positionCss}>
+      {debug && getDebugView()}
       <Animated.View
         {...animatedViewProps}
         {...panResponder.panHandlers}
@@ -255,10 +276,8 @@ Draggable.defaultProps = {
   renderText: '＋',
   renderSize: 36,
   shouldReverse: false,
-  x: 0,
-  y: 0,
-  z: 1,
   disabled: false,
+  debug: false,
   onDrag: () => {},
   onShortPressRelease: () => {},
   onDragRelease: () => {},
@@ -266,6 +285,9 @@ Draggable.defaultProps = {
   onPressIn: () => {},
   onPressOut: () => {},
   onRelease: () => {},
+  x: 0,
+  y: 0,
+  z: 1,
 };
 
 Draggable.propTypes = {
@@ -279,6 +301,7 @@ Draggable.propTypes = {
   children: PropTypes.element,
   shouldReverse: PropTypes.bool,
   disabled: PropTypes.bool,
+  debug: PropTypes.bool,
   animatedViewProps: PropTypes.object,
   touchableOpacityProps: PropTypes.object,
   onDrag: PropTypes.func,
@@ -300,4 +323,11 @@ Draggable.propTypes = {
 
 const styles = StyleSheet.create({
   text: {color: '#fff', textAlign: 'center'},
+  test: {backgroundColor: 'red'},
+  debugView: {
+    backgroundColor: '#ff000044',
+    position: 'absolute',
+    borderColor: '#fced0ecc',
+    borderWidth: 4,
+  },
 });

@@ -27,6 +27,7 @@ export default function App() {
         <ChildComponent />
       </Draggable>
       <Draggable
+        debug
         renderColor="red"
         renderSize={64}
         x={width * 0.75}
@@ -38,9 +39,11 @@ export default function App() {
         renderText="💩"
       />
       <Draggable
+        debug
         isCircle={true}
         imageSource={source}
         renderSize={64}
+        minX={100}
         x={50}
         y={250}
         z={0}
@@ -57,6 +60,7 @@ export default function App() {
         // TODO onRelease={() => console.log('release')}
       />
       <Draggable
+        debug
         renderSize={128}
         renderColor="black"
         x={200}
@@ -73,7 +77,7 @@ export default function App() {
         title={`Cause rerender ${renderCount} of the parent`}
         onPress={() => setRenderCount(renderCount + 1)}
       />
-      <Draggable y={20} z={5} renderColor={'yellowgreen'} />
+      <Draggable debug y={20} z={5} renderColor={'yellowgreen'} />
     </View>
   );
 }

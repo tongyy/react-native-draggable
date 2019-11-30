@@ -68,6 +68,7 @@ return (
 | children | [Component](https://reactjs.org/docs/typechecking-with-proptypes.html#requiring-single-child) | <Text>Sup</Text> | --- | children to render as draggable |
 | shouldReverse | bool | {false} | {false} | should draggable spring back to start when released |
 | disabled | bool | {false} | {false} | should draggable be disabled |
+| debug | bool | {false} | {true} | should show a debug visualization |
 | touchableOpacityProps | [Object](https://facebook.github.io/react-native/docs/touchableopacity#props) | { activeOpactiy: .1 } | --- | props passed to TouchableOpacity component |
 | animatedViewProps | [Object](https://facebook.github.io/react-native/docs/view#props) | { accessibilityHint: 'Wiggle Me!' } | --- | props passed to Animated.View component |
 | x | number |{0}| 0 | initial position x |
