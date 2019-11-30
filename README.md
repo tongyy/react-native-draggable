@@ -8,7 +8,7 @@
 Draggable item for react-native!
 
 ```
-npm install react-native-draggable --save
+npm install react-native-draggable
 import Draggable from 'react-native-draggable';
 ```
 How to use
@@ -52,9 +52,9 @@ return (
 
 ![DEMO2](https://raw.githubusercontent.com/tongyy/react-native-draggable/master/demo/demo3.gif)
 
-[Version 3 Demo](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo.gif)
+[Version 3 Demo](https://github.com/tongyy/react-native-draggable/blob/master/demo/demoV3.gif)
 
-![DEMOV3](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo.gif)
+![DEMOV3](https://github.com/tongyy/react-native-draggable/blob/master/demo/demoV3.gif)
 
 
 # Props spec & Example
@@ -81,17 +81,18 @@ return (
 ## Events
 | Event | Type | Arguments| Description |
 | :------------ |:---------------:|:---------------:|:-----|
-| onShortPressRelease | func | event | onPress event |
-| onDragRelease | func | event, position | release drag event |
-| onLongPress | func | event | long press event |
-| onPressIn | func | event | in press event |
-| onPressOut | func | event | out press event |
+| onDrag | func | event, gestureState | called every frame component is moved |
+| onShortPressRelease | func | event | called when a press is released that isn't a long press or drag |
+| onDragRelease | func | event, gestureState | called when a drag is released |
+| onLongPress | func | event | called when a long press is started |
+| onPressIn | func | event | called when a press is started |
+| onPressOut | func | event | called when a press is stopped, or the component is dragged |
 
 ## Methods (not supported above V2.0.0)
 | Method | params | Description |
 | :------------ |:---------------:|:-----|
 | reversePosition | --- | manually reset Draggable to start position |
-| getPosition| --- |**use pressDragRelease callback instead.**  get the value of x, y, offsetX, offsetY|
+| getPosition| --- |**use onDragRelease callback instead.**  get the value of pageX, pageY|
 
 # What's next?
 

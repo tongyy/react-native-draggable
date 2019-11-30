@@ -49,7 +49,7 @@ export default function Draggable(props) {
     maxY,
   } = props;
 
-  // Using .current because we never re-initialize
+  // The Animated object housing our xy value so that we can spring back
   const pan = React.useRef(new Animated.ValueXY());
   // Always set to xy value of pan, would like to remove
   const offsetFromStart = React.useRef({x: 0, y: 0});
