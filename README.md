@@ -64,10 +64,12 @@ return (
 | isCircle | bool | {true} | --- | render as circle
 | renderSize | number | {36} | {36} | draggable size |
 | imageSource | source | require('./img/xxx.png') | --- | image source|
-| renderColor | string | 'black' | 'yellowgreen' | [Colors](https://facebook.github.io/react-native/docs/colors.html)|
+| renderColor | string | 'black' | --- | [Colors](https://facebook.github.io/react-native/docs/colors.html)|
 | children | [Component](https://reactjs.org/docs/typechecking-with-proptypes.html#requiring-single-child) | <Text>Sup</Text> | --- | children to render as draggable |
 | shouldReverse | bool | {false} | {false} | should draggable spring back to start when released |
 | disabled | bool | {false} | {false} | should draggable be disabled |
+| touchableOpacityProps | [Object](https://facebook.github.io/react-native/docs/touchableopacity#props) | { activeOpactiy: .1 } | --- | props passed to TouchableOpacity component |
+| animatedViewProps | [Object](https://facebook.github.io/react-native/docs/view#props) | { accessibilityHint: 'Wiggle Me!' } | --- | props passed to Animated.View component |
 | x | number |{0}| 0 | initial position x |
 | y | number |{0}| 0 | initial position y |
 | z | number |{1}| 1 | z-index / elevation |
@@ -75,7 +77,6 @@ return (
 | minY | number |{0}| --- | min Y value for top edge of component |
 | maxX | number |{0}| --- | max X value for right edge of component |
 | maxY | number |{0}| --- | max Y value for bottom edge of component |
-| z | number |{1}| 1 | z-index / elevation |
 
 ## Events
 | Event | Type | Arguments| Description |
@@ -97,6 +98,3 @@ return (
 
 This Draggable is used to be a Draggable Button in my project. 
 Let me know if you have any idea or demand, let's discuss and develop it.
-    
-    
-   

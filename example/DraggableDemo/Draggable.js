@@ -34,6 +34,8 @@ export default function Draggable(props) {
     children,
     shouldReverse,
     disabled,
+    animatedViewProps,
+    touchableOpacityProps,
     onDrag,
     onShortPressRelease,
     onDragRelease,
@@ -204,9 +206,11 @@ export default function Draggable(props) {
   return (
     <View pointerEvents="box-none" style={positionCss}>
       <Animated.View
+        {...animatedViewProps}
         {...panResponder.panHandlers}
         style={pan.current.getLayout()}>
         <TouchableOpacity
+          {...touchableOpacityProps}
           onLayout={handleOnLayout}
           style={dragItemCss}
           disabled={disabled}
@@ -224,7 +228,6 @@ export default function Draggable(props) {
 /***** Default props and types */
 
 Draggable.defaultProps = {
-  renderColor: 'yellowgreen',
   renderText: '＋',
   renderSize: 36,
   shouldReverse: false,
@@ -245,6 +248,8 @@ Draggable.propTypes = {
   children: PropTypes.element,
   shouldReverse: PropTypes.bool,
   disabled: PropTypes.bool,
+  animatedViewProps: PropTypes.object,
+  touchableOpacityProps: PropTypes.object,
   onDrag: PropTypes.func,
   onShortPressRelease: PropTypes.func,
   onDragRelease: PropTypes.func,

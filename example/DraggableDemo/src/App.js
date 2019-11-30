@@ -43,6 +43,7 @@ export default function App() {
         renderSize={64}
         x={50}
         y={250}
+        z={0}
         shouldReverse={true}
         onDrag={() => console.log('drag')}
         onShortPressRelease={() => console.log('short press release')}
@@ -69,7 +70,7 @@ export default function App() {
         title={`Cause rerender ${renderCount} of the parent`}
         onPress={() => setRenderCount(renderCount + 1)}
       />
-      <Draggable x={0} y={20} z={5} />
+      <Draggable x={0} y={20} z={5} renderColor={'yellowgreen'} />
     </View>
   );
 }
