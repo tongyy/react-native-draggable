@@ -13,6 +13,7 @@ import ChildComponent from './ChildComponent';
 
 const {width, height} = Dimensions.get('window');
 export default function App() {
+  const [renderCount, setRenderCount] = React.useState(1);
   const [source, setSource] = React.useState(require('../img/trump1.png'));
 
   const changeFace = () => {
@@ -64,7 +65,10 @@ export default function App() {
         shouldReverse={true}
         onShortPressRelease={() => alert('touched!!')}
       />
-      <Button title="You can still press me" />
+      <Button
+        title={`Cause rerender ${renderCount} of the parent`}
+        onPress={() => setRenderCount(renderCount + 1)}
+      />
       <Draggable x={0} y={20} z={5} />
     </View>
   );

@@ -1,6 +1,5 @@
 # react-native-draggable
-[![Build Status](https://travis-ci.org/tongyy/react-native-draggable.svg?branch=master)](https://travis-ci.org/tongyy/react-native-draggable)
-[![npm version](https://badge.fury.io/js/react-native-draggable.svg)](https://badge.fury.io/js/react-native-draggable)
+[![Build Status](https://travis-ci.org/tongyy/react-native-draggable.svg?branch=master)](https://travis-ci.org/tongyy/react-native-draggable) [![npm version](https://badge.fury.io/js/react-native-draggable.svg)](https://badge.fury.io/js/react-native-draggable)
 
 [![NPM](https://nodei.co/npm/react-native-draggable.png?compact=true)](https://npmjs.org/package/react-native-draggable)
 
@@ -66,9 +65,9 @@ return (
 | renderSize | number | {36} | {36} | draggable size |
 | imageSource | source | require('./img/xxx.png') | --- | image source|
 | renderColor | string | 'black' | 'yellowgreen' | [Colors](https://facebook.github.io/react-native/docs/colors.html)|
-| children | [Component](https://reactjs.org/docs/typechecking-with-proptypes.html#requiring-single-child) | <Text>Sup</Text> | children to render as draggable |
-| shouldReverse | bool | {false} | {false} | reverse flag |
-| disabled | bool | {false} | {false} | disabled flag |
+| children | [Component](https://reactjs.org/docs/typechecking-with-proptypes.html#requiring-single-child) | <Text>Sup</Text> | --- | children to render as draggable |
+| shouldReverse | bool | {false} | {false} | should draggable spring back to start when released |
+| disabled | bool | {false} | {false} | should draggable be disabled |
 | x | number |{0}| 0 | initial position x |
 | y | number |{0}| 0 | initial position y |
 | z | number |{1}| 1 | z-index / elevation |
