@@ -20,10 +20,6 @@ function clamp(number, min, max) {
   return Math.max(min, Math.min(number, max));
 }
 
-function isDragging(gs) {
-  return Math.abs(gs.dx) > 2 || Math.abs(gs.dy) > 2;
-}
-
 export default function Draggable(props) {
   const {
     renderText,
@@ -42,6 +38,7 @@ export default function Draggable(props) {
     onLongPress,
     onPressIn,
     onPressOut,
+    onRelease,
     x,
     y,
     z,
@@ -59,6 +56,8 @@ export default function Draggable(props) {
   const childSize = React.useRef({x: renderSize, y: renderSize});
   // Top/Left/Right/Bottom location on screen from start of most recent touch
   const startBounds = React.useRef();
+  // Whether we're currently dragging or not
+  const isDragging = React.useRef(false);
 
   const getBounds = React.useCallback(() => {
     const left = x + offsetFromStart.current.x;
@@ -71,14 +70,23 @@ export default function Draggable(props) {
     };
   }, [x, y]);
 
+  const shouldStartDrag = React.useCallback(
+    gs => {
+      return !disabled && (Math.abs(gs.dx) > 2 || Math.abs(gs.dy) > 2);
+    },
+    [disabled],
+  );
+
   const reversePosition = React.useCallback(() => {
     Animated.spring(pan.current, {toValue: {x: 0, y: 0}}).start();
   }, [pan]);
 
   const onPanResponderRelease = React.useCallback(
     (e, gestureState) => {
+      isDragging.current = false;
       if (onDragRelease) {
         onDragRelease(e, gestureState);
+        onRelease(e, true);
       }
       if (!shouldReverse) {
         pan.current.flattenOffset();
@@ -86,12 +94,13 @@ export default function Draggable(props) {
         reversePosition();
       }
     },
-    [onDragRelease, shouldReverse, reversePosition],
+    [onDragRelease, shouldReverse, onRelease, reversePosition],
   );
 
   const onPanResponderGrant = React.useCallback(
     (e, gestureState) => {
       startBounds.current = getBounds();
+      isDragging.current = true;
       if (!shouldReverse) {
         pan.current.setOffset(offsetFromStart.current);
         pan.current.setValue({x: 0, y: 0});
@@ -116,7 +125,7 @@ export default function Draggable(props) {
         Number.isFinite(maxY) ? maxY - bottom : far,
       );
       pan.current.setValue({x: changeX, y: changeY});
-      onDrag && onDrag(e, gestureState);
+      onDrag(e, gestureState);
     },
     [maxX, maxY, minX, minY, onDrag],
   );
@@ -124,14 +133,19 @@ export default function Draggable(props) {
   const panResponder = React.useMemo(() => {
     return PanResponder.create({
       onMoveShouldSetPanResponder: (_, gestureState) =>
-        !disabled && isDragging(gestureState),
+        shouldStartDrag(gestureState),
       onMoveShouldSetPanResponderCapture: (_, gestureState) =>
-        !disabled && isDragging(gestureState),
+        shouldStartDrag(gestureState),
       onPanResponderGrant,
       onPanResponderMove: Animated.event([], {listener: handleOnDrag}),
       onPanResponderRelease,
     });
-  }, [disabled, handleOnDrag, onPanResponderGrant, onPanResponderRelease]);
+  }, [
+    handleOnDrag,
+    onPanResponderGrant,
+    onPanResponderRelease,
+    shouldStartDrag,
+  ]);
 
   // TODO Figure out a way to destroy and remove offsetFromStart entirely
   React.useEffect(() => {
@@ -203,6 +217,16 @@ export default function Draggable(props) {
     childSize.current = {x: width, y: height};
   }, []);
 
+  const handlePressOut = React.useCallback(
+    event => {
+      onPressOut(event);
+      if (!isDragging.current) {
+        onRelease(event, false);
+      }
+    },
+    [onPressOut, onRelease],
+  );
+
   return (
     <View pointerEvents="box-none" style={positionCss}>
       <Animated.View
@@ -217,7 +241,7 @@ export default function Draggable(props) {
           onPress={onShortPressRelease}
           onLongPress={onLongPress}
           onPressIn={onPressIn}
-          onPressOut={onPressOut}>
+          onPressOut={handlePressOut}>
           {touchableContent}
         </TouchableOpacity>
       </Animated.View>
@@ -235,6 +259,13 @@ Draggable.defaultProps = {
   y: 0,
   z: 1,
   disabled: false,
+  onDrag: () => {},
+  onShortPressRelease: () => {},
+  onDragRelease: () => {},
+  onLongPress: () => {},
+  onPressIn: () => {},
+  onPressOut: () => {},
+  onRelease: () => {},
 };
 
 Draggable.propTypes = {
@@ -256,6 +287,7 @@ Draggable.propTypes = {
   onLongPress: PropTypes.func,
   onPressIn: PropTypes.func,
   onPressOut: PropTypes.func,
+  onRelease: PropTypes.func,
   x: PropTypes.number,
   y: PropTypes.number,
   // z/elevation should be removed because it doesn't sync up visually and haptically

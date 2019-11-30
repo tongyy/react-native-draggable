@@ -51,6 +51,9 @@ export default function App() {
         onLongPress={() => console.log('long press')}
         onPressIn={() => console.log('in press')}
         onPressOut={() => console.log('out press')}
+        onRelease={(e, wasDragging) =>
+          console.log(`was dragging is ${wasDragging}`)
+        }
         // TODO onRelease={() => console.log('release')}
       />
       <Draggable
@@ -70,7 +73,7 @@ export default function App() {
         title={`Cause rerender ${renderCount} of the parent`}
         onPress={() => setRenderCount(renderCount + 1)}
       />
-      <Draggable x={0} y={20} z={5} renderColor={'yellowgreen'} />
+      <Draggable y={20} z={5} renderColor={'yellowgreen'} />
     </View>
   );
 }
