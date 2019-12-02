@@ -251,6 +251,7 @@ export default function Draggable(props) {
     <View pointerEvents="box-none" style={positionCss}>
       {debug && getDebugView()}
       <Animated.View
+        pointerEvents="box-none"
         {...animatedViewProps}
         {...panResponder.panHandlers}
         style={pan.current.getLayout()}>
