@@ -1,6 +1,6 @@
 {
   "name": "react-native-draggable",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "draggable",
   "main": "index.js",
   "scripts": {
@@ -15,19 +15,19 @@
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.7.4",
-    "@babel/plugin-transform-flow-strip-types": "^7.7.4",
-    "@react-native-community/eslint-config": "0.0.5",
-    "babel-eslint": "^10.0.3",
-    "babel-jest": "^24.9.0",
-    "eslint": "^6.7.0",
-    "eslint-config-prettier": "^6.7.0",
-    "eslint-plugin-react": "^7.16.0",
-    "jest": "^24.9.0",
-    "metro-react-native-babel-preset": "^0.57.0",
-    "react": "16.9.0",
-    "react-native": "^0.61.5",
-    "react-test-renderer": "^16.12.0"
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-transform-flow-strip-types": "^7.9.0",
+    "@react-native-community/eslint-config": "1.0.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^25.3.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-react": "^7.19.0",
+    "jest": "^25.3.0",
+    "metro-react-native-babel-preset": "^0.58.0",
+    "react": "16.11.0",
+    "react-native": "^0.62.2",
+    "react-test-renderer": "^16.11.0"
   },
   "jest": {
     "preset": "react-native",
