@@ -4,7 +4,7 @@
  */
 import React from 'react';
 import { GestureResponderEvent, PanResponderGestureState } from 'react-native';
-interface IProps {
+export interface IDraggableProps {
     /**** props that should probably be removed in favor of "children" */
     renderText?: string;
     isCircle?: boolean;
@@ -18,9 +18,9 @@ interface IProps {
     debug?: boolean;
     animatedViewProps?: object;
     touchableOpacityProps?: object;
-    onDrag?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
+    onDrag?: (event: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
     onShortPressRelease?: (event: GestureResponderEvent) => void;
-    onDragRelease?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
+    onDragRelease?: (event: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
     onLongPress?: (event: GestureResponderEvent) => void;
     onPressIn?: (event: GestureResponderEvent) => void;
     onPressOut?: (event: GestureResponderEvent) => void;
@@ -33,24 +33,22 @@ interface IProps {
     maxX?: number;
     maxY?: number;
 }
-declare function Draggable(props: IProps): JSX.Element;
-declare namespace Draggable {
-    var defaultProps: {
-        renderText: string;
-        renderSize: number;
-        shouldReverse: boolean;
-        disabled: boolean;
-        debug: boolean;
-        onDrag: () => void;
-        onShortPressRelease: () => void;
-        onDragRelease: () => void;
-        onLongPress: () => void;
-        onPressIn: () => void;
-        onPressOut: () => void;
-        onRelease: () => void;
-        x: number;
-        y: number;
-        z: number;
-    };
+declare function Draggable(props: IDraggableProps): JSX.Element;
+Draggable.defaultProps = {
+    renderText: '＋',
+    renderSize: 36,
+    shouldReverse: false,
+    disabled: false,
+    debug: false,
+    onDrag: () => {},
+    onShortPressRelease: () => {},
+    onDragRelease: () => {},
+    onLongPress: () => {},
+    onPressIn: () => {},
+    onPressOut: () => {},
+    onRelease: () => {},
+    x: 0,
+    y: 0,
+    z: 1,
 }
 export default Draggable;
