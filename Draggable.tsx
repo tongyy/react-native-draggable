@@ -13,14 +13,49 @@ import {
   Dimensions,
   TouchableOpacity,
   StyleSheet,
+  GestureResponderEvent,
+  PanResponderGestureState,
+  StyleProp,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { ViewStyle } from 'react-native/Libraries/StyleSheet/StyleSheet';
 
-function clamp(number, min, max) {
+function clamp(number: number, min: number, max: number) {
   return Math.max(min, Math.min(number, max));
 }
 
-export default function Draggable(props) {
+interface IProps {
+    /**** props that should probably be removed in favor of "children" */
+    renderText?: string;
+    isCircle?: boolean;
+    renderSize?: number;
+    imageSource?: number;
+    renderColor?: string;
+    /**** */
+    children?: React.ReactNode;
+    shouldReverse?: boolean;
+    disabled?: boolean;
+    debug?: boolean;
+    animatedViewProps?: object;
+    touchableOpacityProps?: object;
+    onDrag?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
+    onShortPressRelease?: (event: GestureResponderEvent) => void;
+    onDragRelease?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
+    onLongPress?: (event: GestureResponderEvent) => void;
+    onPressIn?: (event: GestureResponderEvent) => void;
+    onPressOut?: (event: GestureResponderEvent) => void;
+    onRelease?: (event: GestureResponderEvent, wasDragging: boolean) => void;
+    x?: number;
+    y?: number;
+    // z/elevation should be removed because it doesn't sync up visually and haptically
+    z?: number;
+    minX?: number;
+    minY?: number;
+    maxX?: number;
+    maxY?: number;
+  };
+
+export default function Draggable(props: IProps) {
   const {
     renderText,
     isCircle,
@@ -56,7 +91,7 @@ export default function Draggable(props) {
   // Width/Height of Draggable (renderSize is arbitrary if children are passed in)
   const childSize = React.useRef({x: renderSize, y: renderSize});
   // Top/Left/Right/Bottom location on screen from start of most recent touch
-  const startBounds = React.useRef();
+  const startBounds = React.useRef({top: 0, bottom: 0, left: 0, right: 0});
   // Whether we're currently dragging or not
   const isDragging = React.useRef(false);
 
@@ -72,7 +107,7 @@ export default function Draggable(props) {
   }, [x, y]);
 
   const shouldStartDrag = React.useCallback(
-    (gs) => {
+    gs => {
       return !disabled && (Math.abs(gs.dx) > 2 || Math.abs(gs.dy) > 2);
     },
     [disabled],
@@ -86,7 +121,7 @@ export default function Draggable(props) {
   }, [pan]);
 
   const onPanResponderRelease = React.useCallback(
-    (e, gestureState) => {
+    (e: GestureResponderEvent, gestureState: PanResponderGestureState) => {
       isDragging.current = false;
       if (onDragRelease) {
         onDragRelease(e, gestureState);
@@ -102,7 +137,7 @@ export default function Draggable(props) {
   );
 
   const onPanResponderGrant = React.useCallback(
-    (e, gestureState) => {
+    (e: GestureResponderEvent, gestureState: PanResponderGestureState) => {
       startBounds.current = getBounds();
       isDragging.current = true;
       if (!shouldReverse) {
@@ -114,7 +149,7 @@ export default function Draggable(props) {
   );
 
   const handleOnDrag = React.useCallback(
-    (e, gestureState) => {
+    (e: GestureResponderEvent, gestureState: PanResponderGestureState) => {
       const {dx, dy} = gestureState;
       const {top, right, left, bottom} = startBounds.current;
       const far = 999999999;
@@ -142,6 +177,7 @@ export default function Draggable(props) {
         shouldStartDrag(gestureState),
       onPanResponderGrant,
       onPanResponderMove: Animated.event([], {
+        // Typed incorrectly https://reactnative.dev/docs/panresponder
         listener: handleOnDrag,
         useNativeDriver: false,
       }),
@@ -158,14 +194,15 @@ export default function Draggable(props) {
   React.useEffect(() => {
     const curPan = pan.current; // Using an instance to avoid losing the pointer before the cleanup
     if (!shouldReverse) {
-      curPan.addListener((c) => (offsetFromStart.current = c));
+      curPan.addListener(c => (offsetFromStart.current = c));
     }
     return () => {
+        // Typed incorrectly
       curPan.removeAllListeners();
     };
   }, [shouldReverse]);
 
-  const positionCss = React.useMemo(() => {
+  const positionCss: StyleProp<ViewStyle> = React.useMemo(() => {
     const Window = Dimensions.get('window');
     return {
       position: 'absolute',
@@ -177,7 +214,7 @@ export default function Draggable(props) {
   }, []);
 
   const dragItemCss = React.useMemo(() => {
-    const style = {
+    const style: StyleProp<ViewStyle> = {
       top: y,
       left: x,
       elevation: z,
@@ -219,13 +256,13 @@ export default function Draggable(props) {
     }
   }, [children, imageSource, renderSize, renderText]);
 
-  const handleOnLayout = React.useCallback((event) => {
+  const handleOnLayout = React.useCallback(event => {
     const {height, width} = event.nativeEvent.layout;
     childSize.current = {x: width, y: height};
   }, []);
 
   const handlePressOut = React.useCallback(
-    (event) => {
+    (event: GestureResponderEvent) => {
       onPressOut(event);
       if (!isDragging.current) {
         onRelease(event, false);
@@ -297,40 +334,8 @@ Draggable.defaultProps = {
   z: 1,
 };
 
-Draggable.propTypes = {
-  /**** props that should probably be removed in favor of "children" */
-  renderText: PropTypes.string,
-  isCircle: PropTypes.bool,
-  renderSize: PropTypes.number,
-  imageSource: PropTypes.number,
-  renderColor: PropTypes.string,
-  /**** */
-  children: PropTypes.element,
-  shouldReverse: PropTypes.bool,
-  disabled: PropTypes.bool,
-  debug: PropTypes.bool,
-  animatedViewProps: PropTypes.object,
-  touchableOpacityProps: PropTypes.object,
-  onDrag: PropTypes.func,
-  onShortPressRelease: PropTypes.func,
-  onDragRelease: PropTypes.func,
-  onLongPress: PropTypes.func,
-  onPressIn: PropTypes.func,
-  onPressOut: PropTypes.func,
-  onRelease: PropTypes.func,
-  x: PropTypes.number,
-  y: PropTypes.number,
-  // z/elevation should be removed because it doesn't sync up visually and haptically
-  z: PropTypes.number,
-  minX: PropTypes.number,
-  minY: PropTypes.number,
-  maxX: PropTypes.number,
-  maxY: PropTypes.number,
-};
-
 const styles = StyleSheet.create({
   text: {color: '#fff', textAlign: 'center'},
-  test: {backgroundColor: 'red'},
   debugView: {
     backgroundColor: '#ff000044',
     position: 'absolute',

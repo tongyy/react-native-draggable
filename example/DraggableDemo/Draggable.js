@@ -72,14 +72,17 @@ export default function Draggable(props) {
   }, [x, y]);
 
   const shouldStartDrag = React.useCallback(
-    gs => {
+    (gs) => {
       return !disabled && (Math.abs(gs.dx) > 2 || Math.abs(gs.dy) > 2);
     },
     [disabled],
   );
 
   const reversePosition = React.useCallback(() => {
-    Animated.spring(pan.current, {toValue: {x: 0, y: 0}}).start();
+    Animated.spring(pan.current, {
+      toValue: {x: 0, y: 0},
+      useNativeDriver: false,
+    }).start();
   }, [pan]);
 
   const onPanResponderRelease = React.useCallback(
@@ -138,7 +141,10 @@ export default function Draggable(props) {
       onMoveShouldSetPanResponderCapture: (_, gestureState) =>
         shouldStartDrag(gestureState),
       onPanResponderGrant,
-      onPanResponderMove: Animated.event([], {listener: handleOnDrag}),
+      onPanResponderMove: Animated.event([], {
+        listener: handleOnDrag,
+        useNativeDriver: false,
+      }),
       onPanResponderRelease,
     });
   }, [
@@ -152,7 +158,7 @@ export default function Draggable(props) {
   React.useEffect(() => {
     const curPan = pan.current; // Using an instance to avoid losing the pointer before the cleanup
     if (!shouldReverse) {
-      curPan.addListener(c => (offsetFromStart.current = c));
+      curPan.addListener((c) => (offsetFromStart.current = c));
     }
     return () => {
       curPan.removeAllListeners();
@@ -175,7 +181,7 @@ export default function Draggable(props) {
       top: y,
       left: x,
       elevation: z,
-      z,
+      zIndex: z,
     };
     if (renderColor) {
       style.backgroundColor = renderColor;
@@ -213,13 +219,13 @@ export default function Draggable(props) {
     }
   }, [children, imageSource, renderSize, renderText]);
 
-  const handleOnLayout = React.useCallback(event => {
+  const handleOnLayout = React.useCallback((event) => {
     const {height, width} = event.nativeEvent.layout;
     childSize.current = {x: width, y: height};
   }, []);
 
   const handlePressOut = React.useCallback(
-    event => {
+    (event) => {
       onPressOut(event);
       if (!isDragging.current) {
         onRelease(event, false);

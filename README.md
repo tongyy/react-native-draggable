@@ -54,7 +54,7 @@ return (
 
 [Version 3 Demo](https://github.com/tongyy/react-native-draggable/blob/master/demo/demoV3.gif)
 
-![DEMOV3](https://github.com/tongyy/react-native-draggable/blob/master/demo/demoV3.gif)
+![DEMOV3](https://raw.githubusercontent.com/tongyy/react-native-draggable/master/demo/demoV3.gif)
 
 
 # Props spec & Example
