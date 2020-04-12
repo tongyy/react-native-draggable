@@ -79,7 +79,10 @@ export default function Draggable(props) {
   );
 
   const reversePosition = React.useCallback(() => {
-    Animated.spring(pan.current, {toValue: {x: 0, y: 0}}).start();
+    Animated.spring(pan.current, {
+      toValue: {x: 0, y: 0},
+      useNativeDriver: false,
+    }).start();
   }, [pan]);
 
   const onPanResponderRelease = React.useCallback(
@@ -138,7 +141,10 @@ export default function Draggable(props) {
       onMoveShouldSetPanResponderCapture: (_, gestureState) =>
         shouldStartDrag(gestureState),
       onPanResponderGrant,
-      onPanResponderMove: Animated.event([], {listener: handleOnDrag}),
+      onPanResponderMove: Animated.event([], {
+        listener: handleOnDrag,
+        useNativeDriver: false,
+      }),
       onPanResponderRelease,
     });
   }, [
@@ -175,7 +181,7 @@ export default function Draggable(props) {
       top: y,
       left: x,
       elevation: z,
-      z,
+      zIndex: z,
     };
     if (renderColor) {
       style.backgroundColor = renderColor;
