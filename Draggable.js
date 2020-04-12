@@ -175,7 +175,7 @@ export default function Draggable(props) {
       top: y,
       left: x,
       elevation: z,
-      z,
+      zIndex: z,
     };
     if (renderColor) {
       style.backgroundColor = renderColor;
