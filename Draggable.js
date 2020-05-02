@@ -29,6 +29,7 @@ export default function Draggable(props) {
     renderColor,
     children,
     shouldReverse,
+    onReverse,
     disabled,
     debug,
     animatedViewProps,
@@ -79,10 +80,13 @@ export default function Draggable(props) {
   );
 
   const reversePosition = React.useCallback(() => {
+    const originalOffset = {x: 0, y: 0};
+    const newOffset = typeof onReverse === "function" ? onReverse() : originalOffset;
     Animated.spring(pan.current, {
-      toValue: {x: 0, y: 0},
+      toValue: newOffset ? newOffset : originalOffset,
       useNativeDriver: false,
     }).start();
+
   }, [pan]);
 
   const onPanResponderRelease = React.useCallback(
@@ -159,12 +163,14 @@ export default function Draggable(props) {
     const curPan = pan.current; // Using an instance to avoid losing the pointer before the cleanup
     if (!shouldReverse) {
       curPan.addListener((c) => (offsetFromStart.current = c));
+    } else {
+        reversePosition();
     }
     return () => {
       curPan.removeAllListeners();
     };
   }, [shouldReverse]);
-
+  
   const positionCss = React.useMemo(() => {
     const Window = Dimensions.get('window');
     return {
@@ -318,6 +324,7 @@ Draggable.propTypes = {
   onPressIn: PropTypes.func,
   onPressOut: PropTypes.func,
   onRelease: PropTypes.func,
+  onReverse: PropTypes.func,
   x: PropTypes.number,
   y: PropTypes.number,
   // z/elevation should be removed because it doesn't sync up visually and haptically

@@ -90,6 +90,8 @@ return (
 | onPressIn | func | event | called when a press is started |
 | onPressOut | func | event | called when a press is stopped, or the component is dragged |
 | onRelease | func | event, wasDragging | called at the end of interaction, regardless if press or drag |
+| onReverse | func | | called when a drag is released, if shouldReverse is true |
+
 ### Arguments [(event, gestureState)](https://reactnative.dev/docs/panresponder) 
 #### event
 | Argument | Description | 
@@ -118,11 +120,10 @@ return (
 | numberActiveTouches | Number of touches currently on screen |
 | gestureState | called at the end of interaction, regardless if press or drag |
 
-
-## Methods (not supported above V2.0.0)
-| Method | params | Description |
-| :------------ |:---------------:|:-----|
-| reversePosition | --- | manually reset Draggable to start position |
+## Methods (not supported above V2.0.0)
+| Method | params | Description |
+| :------------ |:---------------:|:-----|
+| reversePosition | --- | **use onReverse callback instead.** manually reset Draggable to start position |
 | getPosition| --- |**use onDragRelease callback instead.**  get the value of pageX, pageY|
 
 # What's next?
