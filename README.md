@@ -90,6 +90,34 @@ return (
 | onPressIn | func | event | called when a press is started |
 | onPressOut | func | event | called when a press is stopped, or the component is dragged |
 | onRelease | func | event, wasDragging | called at the end of interaction, regardless if press or drag |
+### Arguments [(event, gestureState)](https://reactnative.dev/docs/panresponder) 
+#### event
+| Argument | Description | 
+| :------------ |:---------------|
+| changedTouches | Array of all touch events that have changed since the last event |
+| identifier | The ID of the touch |
+| locationX | The X position of the touch, relative to the element |
+| locationY | The Y position of the touch, relative to the element |
+| pageX | The X position of the touch, relative to the root element |
+| pageY | The Y position of the touch, relative to the root element |
+| target | The node id of the element receiving the touch event |
+| timestamp | A time identifier for the touch, useful for velocity calculation |
+| touches | Array of all current touches on the screen |
+#### gestureState 
+| Argument | Description | 
+| :------------ |:---------------|
+| stateID | ID of the gestureState- persisted as long as there at least one touch on screen|
+| moveX | the latest screen coordinates of the recently-moved touch|
+| moveY | the latest screen coordinates of the recently-moved touch |
+| x0 | the screen coordinates of the responder grant |
+| y0 | the screen coordinates of the responder grant |
+| dx | accumulated distance of the gesture since the touch started |
+| dy | accumulated distance of the gesture since the touch started |
+| vx | current velocity of the gesture |
+| vy | current velocity of the gesture |
+| numberActiveTouches | Number of touches currently on screen |
+| gestureState | called at the end of interaction, regardless if press or drag |
+
 
 ## Methods (not supported above V2.0.0)
 | Method | params | Description |
