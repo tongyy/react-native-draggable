@@ -86,10 +86,16 @@ export default function App() {
           setShouldReverse(true);
         }}
       />
-      <Draggable renderText="Draggable01" renderSize={50} renderColor="yellow" x={drag01.x} y={drag01.y} 
-        shouldReverse={shouldReverse} reverseCallback={()=>{
+      <Draggable 
+        renderText="Draggable01" 
+        renderSize={50} 
+        renderColor="yellow" 
+        x={drag01.x} 
+        y={drag01.y} 
+        shouldReverse={shouldReverse} 
+        onReverse={()=>{
           setShouldReverse(false);
-          return {x:0, y:0}
+          return {x:0, y:100}
         }}/>
     </View>
   );

@@ -29,7 +29,7 @@ export default function Draggable(props) {
     renderColor,
     children,
     shouldReverse,
-    reverseCallback,
+    onReverse,
     disabled,
     debug,
     animatedViewProps,
@@ -81,9 +81,9 @@ export default function Draggable(props) {
 
   const reversePosition = React.useCallback(() => {
     const originalOffset = {x: 0, y: 0};
-    const newOffset = typeof reverseCallback === "function" ? reverseCallback() : originalOffset;
+    const newOffset = onReverse ? onReverse() : originalOffset;
     Animated.spring(pan.current, {
-      toValue: newOffset ? newOffset : originalOffset,
+      toValue: newOffset || originalOffset,
       useNativeDriver: false,
     }).start();
 
@@ -324,6 +324,7 @@ Draggable.propTypes = {
   onPressIn: PropTypes.func,
   onPressOut: PropTypes.func,
   onRelease: PropTypes.func,
+  onReverse: PropTypes.func,
   x: PropTypes.number,
   y: PropTypes.number,
   // z/elevation should be removed because it doesn't sync up visually and haptically

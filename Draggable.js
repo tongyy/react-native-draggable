@@ -81,9 +81,9 @@ export default function Draggable(props) {
 
   const reversePosition = React.useCallback(() => {
     const originalOffset = {x: 0, y: 0};
-    const newOffset = typeof onReverse === "function" ? onReverse() : originalOffset;
+    const newOffset = onReverse ? onReverse() : originalOffset;
     Animated.spring(pan.current, {
-      toValue: newOffset ? newOffset : originalOffset,
+      toValue: newOffset || originalOffset,
       useNativeDriver: false,
     }).start();
 
