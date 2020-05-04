@@ -120,10 +120,10 @@ return (
 | numberActiveTouches | Number of touches currently on screen |
 | gestureState | called at the end of interaction, regardless if press or drag |
 
-## Methods (not supported above V2.0.0)
-| Method | params | Description |
-| :------------ |:---------------:|:-----|
-| reversePosition | --- | **use onReverse callback instead.** manually reset Draggable to start position |
+## Methods (not supported above V2.0.0)
+| Method | Params | Description |
+| :------------ |:---------------:|:-----|
+| reversePosition | --- | **use onReverse callback instead.** manually reset Draggable to start position |
 | getPosition| --- |**use onDragRelease callback instead.**  get the value of pageX, pageY|
 
 # What's next?
