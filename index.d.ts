@@ -25,6 +25,7 @@ export interface IDraggableProps {
     onPressIn?: (event: GestureResponderEvent) => void;
     onPressOut?: (event: GestureResponderEvent) => void;
     onRelease?: (event: GestureResponderEvent, wasDragging: boolean) => void;
+    onReverse?: () => {x: number, y: number};
     x?: number;
     y?: number;
     z?: number;
@@ -34,21 +35,5 @@ export interface IDraggableProps {
     maxY?: number;
 }
 declare function Draggable(props: IDraggableProps): JSX.Element;
-Draggable.defaultProps = {
-    renderText: '＋',
-    renderSize: 36,
-    shouldReverse: false,
-    disabled: false,
-    debug: false,
-    onDrag: () => {},
-    onShortPressRelease: () => {},
-    onDragRelease: () => {},
-    onLongPress: () => {},
-    onPressIn: () => {},
-    onPressOut: () => {},
-    onRelease: () => {},
-    x: 0,
-    y: 0,
-    z: 1,
-}
+
 export default Draggable;
