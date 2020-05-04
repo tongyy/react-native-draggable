@@ -14,6 +14,8 @@ import ChildComponent from './ChildComponent';
 const {width, height} = Dimensions.get('window');
 export default function App() {
   const [renderCount, setRenderCount] = React.useState(1);
+  const [shouldReverse, setShouldReverse] = React.useState(false);
+  const [drag01, setDrag01] = React.useState({x:100, y:200});
   const [source, setSource] = React.useState(require('../img/trump1.png'));
 
   const changeFace = () => {
@@ -78,6 +80,23 @@ export default function App() {
         onPress={() => setRenderCount(renderCount + 1)}
       />
       <Draggable debug y={20} z={5} renderColor={'yellowgreen'} />
+      <Button
+        title={`Reverse Draggable01`}
+        onPress={() => {
+          setShouldReverse(true);
+        }}
+      />
+      <Draggable 
+        renderText="Draggable01" 
+        renderSize={50} 
+        renderColor="yellow" 
+        x={drag01.x} 
+        y={drag01.y} 
+        shouldReverse={shouldReverse} 
+        onReverse={()=>{
+          setShouldReverse(false);
+          return {x:0, y:100}
+        }}/>
     </View>
   );
 }
