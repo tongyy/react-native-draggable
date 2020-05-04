@@ -22,28 +22,28 @@ function clamp(number, min, max) {
 
 export default function Draggable(props) {
   const {
-    renderText = '+',
+    renderText,
     isCircle,
-    renderSize = 36,
+    renderSize,
     imageSource,
     renderColor,
     children,
-    shouldReverse = false,
+    shouldReverse,
     onReverse,
-    disabled = false,
-    debug = false,
+    disabled,
+    debug,
     animatedViewProps,
     touchableOpacityProps,
-    onDrag = () => {},
-    onShortPressRelease = () => {},
-    onDragRelease = () => {},
-    onLongPress = () => {},
-    onPressIn = () => {},
-    onPressOut = () => {},
-    onRelease = () => {},
-    x = 0,
-    y = 0,
-    z = 1,
+    onDrag,
+    onShortPressRelease,
+    onDragRelease,
+    onLongPress,
+    onPressIn,
+    onPressOut,
+    onRelease,
+    x,
+    y,
+    z,
     minX,
     minY,
     maxX,
@@ -283,7 +283,25 @@ export default function Draggable(props) {
   );
 }
 
-/**** types */
+/***** Default props and types */
+
+Draggable.defaultProps = {
+  renderText: '＋',
+  renderSize: 36,
+  shouldReverse: false,
+  disabled: false,
+  debug: false,
+  onDrag: () => {},
+  onShortPressRelease: () => {},
+  onDragRelease: () => {},
+  onLongPress: () => {},
+  onPressIn: () => {},
+  onPressOut: () => {},
+  onRelease: () => {},
+  x: 0,
+  y: 0,
+  z: 1,
+};
 
 Draggable.propTypes = {
   /**** props that should probably be removed in favor of "children" */
