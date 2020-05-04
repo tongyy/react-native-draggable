@@ -3,6 +3,7 @@
   "version": "3.2.0",
   "description": "draggable",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "jest",
     "lint": "eslint Draggable.js --fix"
