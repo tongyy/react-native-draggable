@@ -25,6 +25,7 @@ export interface IDraggableProps {
     onPressIn?: (event: GestureResponderEvent) => void;
     onPressOut?: (event: GestureResponderEvent) => void;
     onRelease?: (event: GestureResponderEvent, wasDragging: boolean) => void;
+    onReverse?: () => {x: number, y: number};
     x?: number;
     y?: number;
     z?: number;
