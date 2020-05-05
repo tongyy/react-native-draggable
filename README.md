@@ -122,15 +122,15 @@ return (
 #### bounds
 | Argument | Description | 
 | :------------ |:---------------|
-| left | as x at top left corner |
-| top | as y at top left corner |
-| right | as x at bottom right corner |
-| bottom | as y at bottom right corner |
+| left | as x at the top left corner |
+| top | as y at the top left corner |
+| right | as x at the bottom right corner |
+| bottom | as y at the bottom right corner |
 ## Methods (not supported above V2.0.0)
 | Method | Params | Description |
 | :------------ |:---------------:|:-----|
 | reversePosition | --- | **use onReverse callback instead.** manually reset Draggable to start position |
-| getPosition| --- |**use onDragRelease callback instead.**  get the value of pageX, pageY|
+| getPosition| --- |**use onDragRelease callback instead.**  get the accurate coordinates x,y from the bounds|
 
 # What's next?
 
