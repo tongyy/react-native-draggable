@@ -20,7 +20,8 @@ export interface IDraggableProps {
     touchableOpacityProps?: object;
     onDrag?: (event: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
     onShortPressRelease?: (event: GestureResponderEvent) => void;
-    onDragRelease?: (event: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
+    onDragRelease?: (event: GestureResponderEvent, gestureState: PanResponderGestureState, bounds:
+        {left: number, top: number, right: number, bottom: number}) => void;
     onLongPress?: (event: GestureResponderEvent) => void;
     onPressIn?: (event: GestureResponderEvent) => void;
     onPressOut?: (event: GestureResponderEvent) => void;
