@@ -102,7 +102,7 @@ export default function Draggable(props) {
         reversePosition();
       }
     },
-    [onDragRelease, shouldReverse, onRelease, reversePosition],
+    [onDragRelease, shouldReverse, onRelease, reversePosition, getBounds],
   );
 
   const onPanResponderGrant = React.useCallback(
