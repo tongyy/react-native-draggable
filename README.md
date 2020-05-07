@@ -85,7 +85,7 @@ return (
 | :------------ |:---------------:|:---------------:|:-----|
 | onDrag | func | event, gestureState | called every frame component is moved |
 | onShortPressRelease | func | event | called when a press is released that isn't a long press or drag |
-| onDragRelease | func | event, gestureState | called when a drag is released |
+| onDragRelease | func | event, gestureState, bounds | called when a drag is released |
 | onLongPress | func | event | called when a long press is started |
 | onPressIn | func | event | called when a press is started |
 | onPressOut | func | event | called when a press is stopped, or the component is dragged |
@@ -119,12 +119,18 @@ return (
 | vy | current velocity of the gesture |
 | numberActiveTouches | Number of touches currently on screen |
 | gestureState | called at the end of interaction, regardless if press or drag |
-
+#### bounds
+| Argument | Description | 
+| :------------ |:---------------|
+| left | as x at the top left corner |
+| top | as y at the top left corner |
+| right | as x at the bottom right corner |
+| bottom | as y at the bottom right corner |
 ## Methods (not supported above V2.0.0)
 | Method | Params | Description |
 | :------------ |:---------------:|:-----|
 | reversePosition | --- | **use onReverse callback instead.** manually reset Draggable to start position |
-| getPosition| --- |**use onDragRelease callback instead.**  get the value of pageX, pageY|
+| getPosition| --- |**use onDragRelease callback instead.**  get the accurate coordinates x,y from the bounds|
 
 # What's next?
 

@@ -93,7 +93,7 @@ export default function Draggable(props) {
     (e, gestureState) => {
       isDragging.current = false;
       if (onDragRelease) {
-        onDragRelease(e, gestureState);
+        onDragRelease(e, gestureState, getBounds());
         onRelease(e, true);
       }
       if (!shouldReverse) {
@@ -102,7 +102,7 @@ export default function Draggable(props) {
         reversePosition();
       }
     },
-    [onDragRelease, shouldReverse, onRelease, reversePosition],
+    [onDragRelease, shouldReverse, onRelease, reversePosition, getBounds],
   );
 
   const onPanResponderGrant = React.useCallback(
