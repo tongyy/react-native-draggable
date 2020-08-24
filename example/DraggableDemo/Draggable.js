@@ -31,6 +31,7 @@ export default function Draggable(props) {
     shouldReverse,
     onReverse,
     disabled,
+    dragDisabled,
     debug,
     animatedViewProps,
     touchableOpacityProps,
@@ -74,9 +75,9 @@ export default function Draggable(props) {
 
   const shouldStartDrag = React.useCallback(
     (gs) => {
-      return !disabled && (Math.abs(gs.dx) > 2 || Math.abs(gs.dy) > 2);
+      return !disabled && !dragDisabled && (Math.abs(gs.dx) > 2 || Math.abs(gs.dy) > 2);
     },
-    [disabled],
+    [disabled, dragDisabled],
   );
 
   const reversePosition = React.useCallback(() => {
@@ -170,7 +171,7 @@ export default function Draggable(props) {
       curPan.removeAllListeners();
     };
   }, [shouldReverse]);
-  
+
   const positionCss = React.useMemo(() => {
     const Window = Dimensions.get('window');
     return {
@@ -290,6 +291,7 @@ Draggable.defaultProps = {
   renderSize: 36,
   shouldReverse: false,
   disabled: false,
+  dragDisabled: false,
   debug: false,
   onDrag: () => {},
   onShortPressRelease: () => {},
@@ -314,6 +316,7 @@ Draggable.propTypes = {
   children: PropTypes.element,
   shouldReverse: PropTypes.bool,
   disabled: PropTypes.bool,
+  dragDisabled: PropTypes.bool,
   debug: PropTypes.bool,
   animatedViewProps: PropTypes.object,
   touchableOpacityProps: PropTypes.object,

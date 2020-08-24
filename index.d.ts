@@ -15,6 +15,7 @@ export interface IDraggableProps {
     children?: React.ReactNode;
     shouldReverse?: boolean;
     disabled?: boolean;
+    dragDisabled?: boolean;
     debug?: boolean;
     animatedViewProps?: object;
     touchableOpacityProps?: object;
@@ -41,6 +42,7 @@ Draggable.defaultProps = {
     renderSize: 36,
     shouldReverse: false,
     disabled: false,
+    dragDisabled: false,
     debug: false,
     onDrag: () => {},
     onShortPressRelease: () => {},

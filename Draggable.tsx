@@ -35,6 +35,7 @@ interface IProps {
     children?: React.ReactNode;
     shouldReverse?: boolean;
     disabled?: boolean;
+    dragDisabled?: boolean;
     debug?: boolean;
     animatedViewProps?: object;
     touchableOpacityProps?: object;
@@ -66,6 +67,7 @@ export default function Draggable(props: IProps) {
     children,
     shouldReverse,
     disabled,
+    dragDisabled,
     debug,
     animatedViewProps,
     touchableOpacityProps,
@@ -109,9 +111,9 @@ export default function Draggable(props: IProps) {
 
   const shouldStartDrag = React.useCallback(
     gs => {
-      return !disabled && (Math.abs(gs.dx) > 2 || Math.abs(gs.dy) > 2);
+      return !disabled && !dragDisabled && (Math.abs(gs.dx) > 2 || Math.abs(gs.dy) > 2);
     },
-    [disabled],
+    [disabled, dragDisabled],
   );
 
   const reversePosition = React.useCallback(() => {
@@ -322,6 +324,7 @@ Draggable.defaultProps = {
   renderSize: 36,
   shouldReverse: false,
   disabled: false,
+  dragDisabled: false,
   debug: false,
   onDrag: () => {},
   onShortPressRelease: () => {},

@@ -16,7 +16,7 @@ How to use
 ```
 return (
     <View >
-        <Draggable x={75} y={100} renderSize={56} renderColor='black' renderText='A' isCircle shouldReverse onShortPressRelease={()=>alert('touched!!')}/> 
+        <Draggable x={75} y={100} renderSize={56} renderColor='black' renderText='A' isCircle shouldReverse onShortPressRelease={()=>alert('touched!!')}/>
         <Draggable x={200} y={300} renderColor='red' renderText='B'/>
         <Draggable/>
 	<Draggable x={50} y={50}>
@@ -33,9 +33,9 @@ in my project => <img src="https://raw.githubusercontent.com/tongyy/react-native
 ```
 return (
     <View style={{backgroundColor: 'blue', flex: 1}} >
-        <Draggable 
-            imageSource={require('./trump1.png')} 
-            renderSize={80} 
+        <Draggable
+            imageSource={require('./trump1.png')}
+            renderSize={80}
             x={200}
             y={300}
             onDragRelease={this._changeFace}
@@ -43,12 +43,12 @@ return (
             onShortPressRelease={()=>console.log('press drag')}
             onPressIn={()=>console.log('in press')}
             onPressOut={()=>console.log('out press')}
-        />  
+        />
     </View>
-);  
+);
 
 ```
-[Event Demo](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo3.gif) 
+[Event Demo](https://github.com/tongyy/react-native-draggable/blob/master/demo/demo3.gif)
 
 ![DEMO2](https://raw.githubusercontent.com/tongyy/react-native-draggable/master/demo/demo3.gif)
 
@@ -69,6 +69,7 @@ return (
 | children | [Component](https://reactjs.org/docs/typechecking-with-proptypes.html#requiring-single-child) | `<Text>Sup</Text>` | --- | children to render as draggable |
 | shouldReverse | bool | {false} | {false} | should draggable spring back to start when released |
 | disabled | bool | {false} | {false} | should draggable be disabled |
+| dragDisabled | bool | {false} | {false} | should only the drag functionality be disabled (it remains clickable) |
 | debug | bool | {false} | {false} | should show a debug visualization |
 | touchableOpacityProps | [Object](https://facebook.github.io/react-native/docs/touchableopacity#props) | { activeOpactiy: .1 } | --- | props passed to TouchableOpacity component |
 | animatedViewProps | [Object](https://facebook.github.io/react-native/docs/view#props) | { accessibilityHint: 'drag' } | --- | props passed to Animated.View component |
@@ -92,9 +93,9 @@ return (
 | onRelease | func | event, wasDragging | called at the end of interaction, regardless if press or drag |
 | onReverse | func | | called when a drag is released, if shouldReverse is true |
 
-### Arguments [(event, gestureState)](https://reactnative.dev/docs/panresponder) 
+### Arguments [(event, gestureState)](https://reactnative.dev/docs/panresponder)
 #### event
-| Argument | Description | 
+| Argument | Description |
 | :------------ |:---------------|
 | changedTouches | Array of all touch events that have changed since the last event |
 | identifier | The ID of the touch |
@@ -105,8 +106,8 @@ return (
 | target | The node id of the element receiving the touch event |
 | timestamp | A time identifier for the touch, useful for velocity calculation |
 | touches | Array of all current touches on the screen |
-#### gestureState 
-| Argument | Description | 
+#### gestureState
+| Argument | Description |
 | :------------ |:---------------|
 | stateID | ID of the gestureState- persisted as long as there at least one touch on screen|
 | moveX | the latest screen coordinates of the recently-moved touch|
@@ -120,7 +121,7 @@ return (
 | numberActiveTouches | Number of touches currently on screen |
 | gestureState | called at the end of interaction, regardless if press or drag |
 #### bounds
-| Argument | Description | 
+| Argument | Description |
 | :------------ |:---------------|
 | left | as x at the top left corner |
 | top | as y at the top left corner |
@@ -134,5 +135,5 @@ return (
 
 # What's next?
 
-This Draggable is used to be a Draggable Button in my project. 
+This Draggable is used to be a Draggable Button in my project.
 Let me know if you have any idea or demand, let's discuss and develop it.
