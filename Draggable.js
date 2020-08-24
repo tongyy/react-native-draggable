@@ -171,7 +171,7 @@ export default function Draggable(props) {
       curPan.removeAllListeners();
     };
   }, [shouldReverse]);
-  
+
   const positionCss = React.useMemo(() => {
     const Window = Dimensions.get('window');
     return {
