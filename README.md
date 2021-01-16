@@ -79,6 +79,7 @@ return (
 | minY | number |{0}| --- | min Y value for top edge of component |
 | maxX | number |{0}| --- | max X value for right edge of component |
 | maxY | number |{0}| --- | max Y value for bottom edge of component |
+| zoom | number |{0.7}| 1 | zoom factor, used for properly animate/accelerate a zoomed in/out draggable view |
 
 ## Events
 | Event | Type | Arguments| Description |

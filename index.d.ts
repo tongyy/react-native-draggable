@@ -34,6 +34,7 @@ export interface IDraggableProps {
     minY?: number;
     maxX?: number;
     maxY?: number;
+    zoom?: number;
 }
 declare function Draggable(props: IDraggableProps): JSX.Element;
 Draggable.defaultProps = {
@@ -52,5 +53,6 @@ Draggable.defaultProps = {
     x: 0,
     y: 0,
     z: 1,
+    zoom: 1
 }
 export default Draggable;

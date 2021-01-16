@@ -54,7 +54,8 @@ interface IProps {
     minY?: number;
     maxX?: number;
     maxY?: number;
-  };
+    zoom?: number;
+};
 
 export default function Draggable(props: IProps) {
   const {
@@ -83,6 +84,7 @@ export default function Draggable(props: IProps) {
     minY,
     maxX,
     maxY,
+    zoom
   } = props;
 
   // The Animated object housing our xy value so that we can spring back
@@ -155,12 +157,12 @@ export default function Draggable(props: IProps) {
       const {top, right, left, bottom} = startBounds.current;
       const far = 999999999;
       const changeX = clamp(
-        dx,
+        dx / zoom,
         Number.isFinite(minX) ? minX - left : -far,
         Number.isFinite(maxX) ? maxX - right : far,
       );
       const changeY = clamp(
-        dy,
+        dy / zoom,
         Number.isFinite(minY) ? minY - top : -far,
         Number.isFinite(maxY) ? maxY - bottom : far,
       );
@@ -333,6 +335,7 @@ Draggable.defaultProps = {
   x: 0,
   y: 0,
   z: 1,
+  zoom: 1
 };
 
 const styles = StyleSheet.create({
