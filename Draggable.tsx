@@ -54,6 +54,9 @@ interface IProps {
     minY?: number;
     maxX?: number;
     maxY?: number;
+    accessible?: boolean;
+    accessibilityLabel?: string;
+    testID?: string;
   };
 
 export default function Draggable(props: IProps) {
@@ -83,6 +86,9 @@ export default function Draggable(props: IProps) {
     minY,
     maxX,
     maxY,
+    accessible,
+    accessibilityLabel,
+    testID,
   } = props;
 
   // The Animated object housing our xy value so that we can spring back
@@ -292,7 +298,7 @@ export default function Draggable(props: IProps) {
   }, [maxX, maxY, minX, minY]);
 
   return (
-    <View pointerEvents="box-none" style={positionCss}>
+    <View pointerEvents="box-none" style={positionCss} testID={testID} accessible={accessible} accessibilityLabel={accessibilityLabel}>
       {debug && getDebugView()}
       <Animated.View
         pointerEvents="box-none"
