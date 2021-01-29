@@ -34,6 +34,9 @@ export interface IDraggableProps {
     minY?: number;
     maxX?: number;
     maxY?: number;
+    accessible?: boolean;
+    accessibilityLabel?: string;
+    testID?: string;
 }
 declare function Draggable(props: IDraggableProps): JSX.Element;
 Draggable.defaultProps = {
