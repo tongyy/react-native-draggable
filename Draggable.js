@@ -20,7 +20,7 @@ function clamp(number, min, max) {
   return Math.max(min, Math.min(number, max));
 }
 
-export default function Draggable(props) {
+function Draggable(props) {
   const {
     renderText,
     isCircle,
@@ -345,3 +345,5 @@ const styles = StyleSheet.create({
     borderWidth: 4,
   },
 });
+
+export default Draggable;

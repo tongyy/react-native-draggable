@@ -56,7 +56,7 @@ interface IProps {
     maxY?: number;
   };
 
-export default function Draggable(props: IProps) {
+function Draggable(props: IProps) {
   const {
     renderText,
     isCircle,
@@ -344,3 +344,5 @@ const styles = StyleSheet.create({
     borderWidth: 4,
   },
 });
+
+export default Draggable;
