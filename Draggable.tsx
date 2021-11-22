@@ -38,7 +38,7 @@ interface IProps {
     debug?: boolean;
     animatedViewProps?: object;
     touchableOpacityProps?: object;
-    onDrag?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
+    onDrag?: (e: GestureResponderEvent, gestureState: PanResponderGestureState, pos: {x: number, y: number}) => void;
     onShortPressRelease?: (event: GestureResponderEvent) => void;
     onDragRelease?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
     onLongPress?: (event: GestureResponderEvent) => void;
@@ -95,6 +95,8 @@ export default function Draggable(props: IProps) {
   const startBounds = React.useRef({top: 0, bottom: 0, left: 0, right: 0});
   // Whether we're currently dragging or not
   const isDragging = React.useRef(false);
+  // Because why not
+  const [pos, setPos] = React.useState({x: 0, y: 0})
 
   const getBounds = React.useCallback(() => {
     const left = x + offsetFromStart.current.x;
@@ -150,7 +152,7 @@ export default function Draggable(props: IProps) {
   );
 
   const handleOnDrag = React.useCallback(
-    (e: GestureResponderEvent, gestureState: PanResponderGestureState) => {
+    (e: GestureResponderEvent, gestureState: PanResponderGestureState, pos: {x: number, y: number}) => {
       const {dx, dy} = gestureState;
       const {top, right, left, bottom} = startBounds.current;
       const far = 999999999;
@@ -165,9 +167,9 @@ export default function Draggable(props: IProps) {
         Number.isFinite(maxY) ? maxY - bottom : far,
       );
       pan.current.setValue({x: changeX, y: changeY});
-      onDrag(e, gestureState);
+      onDrag(e, gestureState, pos);
     },
-    [maxX, maxY, minX, minY, onDrag],
+    [maxX, maxY, minX, minY, onDrag, pos],
   );
 
   const panResponder = React.useMemo(() => {
@@ -195,7 +197,10 @@ export default function Draggable(props: IProps) {
   React.useEffect(() => {
     const curPan = pan.current; // Using an instance to avoid losing the pointer before the cleanup
     if (!shouldReverse) {
-      curPan.addListener(c => (offsetFromStart.current = c));
+      curPan.addListener(c => {
+        offsetFromStart.current = c
+        setPos({x: c.x, y: c.y})
+      });
     }
     return () => {
         // Typed incorrectly

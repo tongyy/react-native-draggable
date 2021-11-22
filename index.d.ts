@@ -18,7 +18,7 @@ export interface IDraggableProps {
     debug?: boolean;
     animatedViewProps?: object;
     touchableOpacityProps?: object;
-    onDrag?: (event: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
+    onDrag?: (event: GestureResponderEvent, gestureState: PanResponderGestureState, handlerPos: {x: number, y: number}) => void;
     onShortPressRelease?: (event: GestureResponderEvent) => void;
     onDragRelease?: (event: GestureResponderEvent, gestureState: PanResponderGestureState, bounds:
         {left: number, top: number, right: number, bottom: number}) => void;

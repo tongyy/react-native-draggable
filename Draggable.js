@@ -60,6 +60,8 @@ export default function Draggable(props) {
   const startBounds = React.useRef();
   // Whether we're currently dragging or not
   const isDragging = React.useRef(false);
+  // Because why not
+  const dragHandlerPosition = React.useRef({x: 0, y: 0})
 
   const getBounds = React.useCallback(() => {
     const left = x + offsetFromStart.current.x;
@@ -118,7 +120,7 @@ export default function Draggable(props) {
   );
 
   const handleOnDrag = React.useCallback(
-    (e, gestureState) => {
+    (e, gestureState, handlerPos) => {
       const {dx, dy} = gestureState;
       const {top, right, left, bottom} = startBounds.current;
       const far = 999999999;
@@ -133,9 +135,10 @@ export default function Draggable(props) {
         Number.isFinite(maxY) ? maxY - bottom : far,
       );
       pan.current.setValue({x: changeX, y: changeY});
-      onDrag(e, gestureState);
+      handlerPos = dragHandlerPosition.current
+      onDrag(e, gestureState, handlerPos);
     },
-    [maxX, maxY, minX, minY, onDrag],
+    [maxX, maxY, minX, minY, onDrag, dragHandlerPosition],
   );
 
   const panResponder = React.useMemo(() => {
@@ -162,7 +165,10 @@ export default function Draggable(props) {
   React.useEffect(() => {
     const curPan = pan.current; // Using an instance to avoid losing the pointer before the cleanup
     if (!shouldReverse) {
-      curPan.addListener((c) => (offsetFromStart.current = c));
+      curPan.addListener((c) => {
+        offsetFromStart.current = c
+        dragHandlerPosition.current = {x: c.x, y: c.y}
+      });
     } else {
         reversePosition();
     }
