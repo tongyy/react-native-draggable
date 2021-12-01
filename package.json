@@ -16,22 +16,22 @@
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/plugin-transform-flow-strip-types": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-transform-flow-strip-types": "^7.16.0",
     "@react-native-community/eslint-config": "1.0.0",
-    "@types/react": "^16.9.34",
-    "@types/react-native": "^0.62.2",
+    "@types/react": "^16.14.21",
+    "@types/react-native": "^0.62.18",
     "babel-eslint": "^10.1.0",
-    "babel-jest": "^25.3.0",
+    "babel-jest": "^25.5.1",
     "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-react": "^7.19.0",
-    "jest": "^25.3.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-react": "^7.27.1",
+    "jest": "^25.5.4",
     "metro-react-native-babel-preset": "^0.58.0",
     "react": "16.11.0",
-    "react-native": "^0.62.2",
-    "react-test-renderer": "^16.11.0",
-    "typescript": "^3.8.3"
+    "react-native": "^0.62.3",
+    "react-test-renderer": "^16.14.0",
+    "typescript": "^3.9.10"
   },
   "jest": {
     "preset": "react-native",

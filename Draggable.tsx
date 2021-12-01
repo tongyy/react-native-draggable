@@ -16,45 +16,53 @@ import {
   GestureResponderEvent,
   PanResponderGestureState,
   StyleProp,
+  NativeSyntheticEvent,
+  NativeTouchEvent,
 } from 'react-native';
-import PropTypes from 'prop-types';
-import { ViewStyle } from 'react-native/Libraries/StyleSheet/StyleSheet';
+import {ViewStyle} from 'react-native/Libraries/StyleSheet/StyleSheet';
 
 function clamp(number: number, min: number, max: number) {
   return Math.max(min, Math.min(number, max));
 }
 
 interface IProps {
-    /**** props that should probably be removed in favor of "children" */
-    renderText?: string;
-    isCircle?: boolean;
-    renderSize?: number;
-    imageSource?: number;
-    renderColor?: string;
-    /**** */
-    children?: React.ReactNode;
-    shouldReverse?: boolean;
-    disabled?: boolean;
-    debug?: boolean;
-    animatedViewProps?: object;
-    touchableOpacityProps?: object;
-    onDrag?: (e: GestureResponderEvent, gestureState: PanResponderGestureState, pos: {x: number, y: number}) => void;
-    onShortPressRelease?: (event: GestureResponderEvent) => void;
-    onDragRelease?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
-    onLongPress?: (event: GestureResponderEvent) => void;
-    onPressIn?: (event: GestureResponderEvent) => void;
-    onPressOut?: (event: GestureResponderEvent) => void;
-    onRelease?: (event: GestureResponderEvent, wasDragging: boolean) => void;
-    onReverse?: () => {x: number, y: number},
-    x?: number;
-    y?: number;
-    // z/elevation should be removed because it doesn't sync up visually and haptically
-    z?: number;
-    minX?: number;
-    minY?: number;
-    maxX?: number;
-    maxY?: number;
-  };
+  /**** props that should probably be removed in favor of "children" */
+  renderText?: string;
+  isCircle?: boolean;
+  renderSize?: number;
+  imageSource?: number;
+  renderColor?: string;
+  /**** */
+  children?: React.ReactNode;
+  shouldReverse?: boolean;
+  disabled?: boolean;
+  debug?: boolean;
+  animatedViewProps?: object;
+  touchableOpacityProps?: object;
+  onDrag?: (
+    e: GestureResponderEvent,
+    gestureState: PanResponderGestureState,
+    handlerPos: {x: number; y: number},
+  ) => void;
+  onShortPressRelease?: (event: GestureResponderEvent) => void;
+  onDragRelease?: (
+    e: GestureResponderEvent,
+    gestureState: PanResponderGestureState,
+  ) => void;
+  onLongPress?: (event: GestureResponderEvent) => void;
+  onPressIn?: (event: GestureResponderEvent) => void;
+  onPressOut?: (event: GestureResponderEvent) => void;
+  onRelease?: (event: GestureResponderEvent, wasDragging: boolean) => void;
+  onReverse?: () => {x: number; y: number};
+  x?: number;
+  y?: number;
+  // z/elevation should be removed because it doesn't sync up visually and haptically
+  z?: number;
+  minX?: number;
+  minY?: number;
+  maxX?: number;
+  maxY?: number;
+}
 
 export default function Draggable(props: IProps) {
   const {
@@ -96,21 +104,21 @@ export default function Draggable(props: IProps) {
   // Whether we're currently dragging or not
   const isDragging = React.useRef(false);
   // Because why not
-  const [pos, setPos] = React.useState({x: 0, y: 0})
+  const dragHandlerPosition = React.useRef({x: 0, y: 0});
 
   const getBounds = React.useCallback(() => {
-    const left = x + offsetFromStart.current.x;
-    const top = y + offsetFromStart.current.y;
+    const left = x ? x + offsetFromStart.current.x : 0;
+    const top = y ? y + offsetFromStart.current.y : 0;
     return {
       left,
       top,
-      right: left + childSize.current.x,
-      bottom: top + childSize.current.y,
+      right: left + (childSize.current.x ? childSize.current.x : 0),
+      bottom: top + (childSize.current.y ? childSize.current.y : 0),
     };
   }, [x, y]);
 
   const shouldStartDrag = React.useCallback(
-    gs => {
+    (gs: {dx: number; dy: number}) => {
       return !disabled && (Math.abs(gs.dx) > 2 || Math.abs(gs.dy) > 2);
     },
     [disabled],
@@ -128,7 +136,9 @@ export default function Draggable(props: IProps) {
       isDragging.current = false;
       if (onDragRelease) {
         onDragRelease(e, gestureState);
-        onRelease(e, true);
+        if (onRelease) {
+          onRelease(e, true);
+        }
       }
       if (!shouldReverse) {
         pan.current.flattenOffset();
@@ -140,7 +150,7 @@ export default function Draggable(props: IProps) {
   );
 
   const onPanResponderGrant = React.useCallback(
-    (e: GestureResponderEvent, gestureState: PanResponderGestureState) => {
+    (_e: GestureResponderEvent, _gestureState: PanResponderGestureState) => {
       startBounds.current = getBounds();
       isDragging.current = true;
       if (!shouldReverse) {
@@ -152,38 +162,50 @@ export default function Draggable(props: IProps) {
   );
 
   const handleOnDrag = React.useCallback(
-    (e: GestureResponderEvent, gestureState: PanResponderGestureState, pos: {x: number, y: number}) => {
+    (
+      e: GestureResponderEvent,
+      gestureState: PanResponderGestureState,
+      handlerPos: {x: number; y: number},
+    ) => {
       const {dx, dy} = gestureState;
       const {top, right, left, bottom} = startBounds.current;
       const far = 999999999;
-      const changeX = clamp(
-        dx,
-        Number.isFinite(minX) ? minX - left : -far,
-        Number.isFinite(maxX) ? maxX - right : far,
-      );
-      const changeY = clamp(
-        dy,
-        Number.isFinite(minY) ? minY - top : -far,
-        Number.isFinite(maxY) ? maxY - bottom : far,
-      );
-      pan.current.setValue({x: changeX, y: changeY});
-      onDrag(e, gestureState, pos);
+      if (minX && maxX && minY && maxY) {
+        const changeX = clamp(
+          dx,
+          Number.isFinite(minX) ? minX - left : -far,
+          Number.isFinite(maxX) ? maxX - right : far,
+        );
+        const changeY = clamp(
+          dy,
+          Number.isFinite(minY) ? minY - top : -far,
+          Number.isFinite(maxY) ? maxY - bottom : far,
+        );
+        pan.current.setValue({x: changeX, y: changeY});
+        handlerPos = dragHandlerPosition.current;
+
+        if (onDrag) {
+          onDrag(e, gestureState, handlerPos);
+        }
+      }
     },
-    [maxX, maxY, minX, minY, onDrag, pos],
+    [maxX, maxY, minX, minY, onDrag, dragHandlerPosition],
   );
 
   const panResponder = React.useMemo(() => {
     return PanResponder.create({
-      onMoveShouldSetPanResponder: (_, gestureState) =>
+      onMoveShouldSetPanResponder: (_: any, gestureState: any) =>
         shouldStartDrag(gestureState),
-      onMoveShouldSetPanResponderCapture: (_, gestureState) =>
+      onMoveShouldSetPanResponderCapture: (_: any, gestureState: any) =>
         shouldStartDrag(gestureState),
       onPanResponderGrant,
-      onPanResponderMove: Animated.event([], {
-        // Typed incorrectly https://reactnative.dev/docs/panresponder
-        listener: handleOnDrag,
-        useNativeDriver: false,
-      }),
+      onPanResponderMove: (_: any, gestureState: any) =>
+        Animated.event([], {
+          // Typed incorrectly https://reactnative.dev/docs/panresponder
+          listener: (event: NativeSyntheticEvent<NativeTouchEvent>) =>
+            handleOnDrag(event, gestureState, dragHandlerPosition.current),
+          useNativeDriver: false,
+        }),
       onPanResponderRelease,
     });
   }, [
@@ -197,13 +219,13 @@ export default function Draggable(props: IProps) {
   React.useEffect(() => {
     const curPan = pan.current; // Using an instance to avoid losing the pointer before the cleanup
     if (!shouldReverse) {
-      curPan.addListener(c => {
-        offsetFromStart.current = c
-        setPos({x: c.x, y: c.y})
+      curPan.addListener((c: {x: any; y: any}) => {
+        offsetFromStart.current = c;
+        dragHandlerPosition.current = {x: c.x, y: c.y};
       });
     }
     return () => {
-        // Typed incorrectly
+      // Typed incorrectly
       curPan.removeAllListeners();
     };
   }, [shouldReverse]);
@@ -262,15 +284,20 @@ export default function Draggable(props: IProps) {
     }
   }, [children, imageSource, renderSize, renderText]);
 
-  const handleOnLayout = React.useCallback(event => {
-    const {height, width} = event.nativeEvent.layout;
-    childSize.current = {x: width, y: height};
-  }, []);
+  const handleOnLayout = React.useCallback(
+    (event: {nativeEvent: {layout: {height: any; width: any}}}) => {
+      const {height, width} = event.nativeEvent.layout;
+      childSize.current = {x: width, y: height};
+    },
+    [],
+  );
 
   const handlePressOut = React.useCallback(
     (event: GestureResponderEvent) => {
-      onPressOut(event);
-      if (!isDragging.current) {
+      if (onPressOut) {
+        onPressOut(event);
+      }
+      if (!isDragging.current && onRelease) {
         onRelease(event, false);
       }
     },
