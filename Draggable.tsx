@@ -53,6 +53,7 @@ interface IProps {
   onPressIn?: (event: GestureResponderEvent) => void;
   onPressOut?: (event: GestureResponderEvent) => void;
   onRelease?: (event: GestureResponderEvent, wasDragging: boolean) => void;
+  onPanPositionChanged?: (position: {x: number; y: number}) => void;
   onReverse?: () => {x: number; y: number};
   x?: number;
   y?: number;
@@ -84,6 +85,7 @@ export default function Draggable(props: IProps) {
     onPressIn,
     onPressOut,
     onRelease,
+    onPanPositionChanged,
     x,
     y,
     z,
@@ -222,13 +224,16 @@ export default function Draggable(props: IProps) {
       curPan.addListener((c: {x: any; y: any}) => {
         offsetFromStart.current = c;
         dragHandlerPosition.current = {x: c.x, y: c.y};
+        if (onPanPositionChanged) {
+          onPanPositionChanged(dragHandlerPosition.current);
+        }
       });
     }
     return () => {
       // Typed incorrectly
       curPan.removeAllListeners();
     };
-  }, [shouldReverse]);
+  }, [onPanPositionChanged, shouldReverse]);
 
   const positionCss: StyleProp<ViewStyle> = React.useMemo(() => {
     const Window = Dimensions.get('window');
@@ -362,6 +367,7 @@ Draggable.defaultProps = {
   onPressIn: () => {},
   onPressOut: () => {},
   onRelease: () => {},
+  onPanPositionChanged: () => {},
   x: 0,
   y: 0,
   z: 1,
