@@ -41,6 +41,7 @@ export default function Draggable(props) {
     onPressIn,
     onPressOut,
     onRelease,
+    onPanPositionChanged,
     x,
     y,
     z,
@@ -61,7 +62,7 @@ export default function Draggable(props) {
   // Whether we're currently dragging or not
   const isDragging = React.useRef(false);
   // Because why not
-  const dragHandlerPosition = React.useRef({x: 0, y: 0})
+  const panPosition = React.useRef({x: 0, y: 0});
 
   const getBounds = React.useCallback(() => {
     const left = x + offsetFromStart.current.x;
@@ -88,8 +89,7 @@ export default function Draggable(props) {
       toValue: newOffset || originalOffset,
       useNativeDriver: false,
     }).start();
-
-  }, [pan]);
+  }, [onReverse]);
 
   const onPanResponderRelease = React.useCallback(
     (e, gestureState) => {
@@ -120,7 +120,7 @@ export default function Draggable(props) {
   );
 
   const handleOnDrag = React.useCallback(
-    (e, gestureState, handlerPos) => {
+    (e, gestureState) => {
       const {dx, dy} = gestureState;
       const {top, right, left, bottom} = startBounds.current;
       const far = 999999999;
@@ -135,10 +135,9 @@ export default function Draggable(props) {
         Number.isFinite(maxY) ? maxY - bottom : far,
       );
       pan.current.setValue({x: changeX, y: changeY});
-      handlerPos = dragHandlerPosition.current
-      onDrag(e, gestureState, handlerPos);
+      onDrag(e, gestureState, panPosition.current);
     },
-    [maxX, maxY, minX, minY, onDrag, dragHandlerPosition],
+    [maxX, maxY, minX, minY, onDrag, panPosition],
   );
 
   const panResponder = React.useMemo(() => {
@@ -166,17 +165,18 @@ export default function Draggable(props) {
     const curPan = pan.current; // Using an instance to avoid losing the pointer before the cleanup
     if (!shouldReverse) {
       curPan.addListener((c) => {
-        offsetFromStart.current = c
-        dragHandlerPosition.current = {x: c.x, y: c.y}
+        offsetFromStart.current = c;
+        panPosition.current = {x: c.x, y: c.y};
+        onPanPositionChanged(panPosition.current);
       });
     } else {
-        reversePosition();
+      reversePosition();
     }
     return () => {
       curPan.removeAllListeners();
     };
-  }, [shouldReverse]);
-  
+  }, [onPanPositionChanged, reversePosition, shouldReverse]);
+
   const positionCss = React.useMemo(() => {
     const Window = Dimensions.get('window');
     return {
@@ -331,6 +331,7 @@ Draggable.propTypes = {
   onPressOut: PropTypes.func,
   onRelease: PropTypes.func,
   onReverse: PropTypes.func,
+  onPanPositionChanged: PropTypes.func,
   x: PropTypes.number,
   y: PropTypes.number,
   // z/elevation should be removed because it doesn't sync up visually and haptically
