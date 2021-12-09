@@ -167,7 +167,7 @@ export default function Draggable(props) {
       curPan.addListener((c) => {
         offsetFromStart.current = c;
         panPosition.current = {x: c.x, y: c.y};
-        onPanPositionChanged(panPosition.current);
+        onPanPositionChanged?.(panPosition.current);
       });
     } else {
       reversePosition();
