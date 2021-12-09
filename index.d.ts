@@ -21,7 +21,7 @@ export interface IDraggableProps {
   onDrag?: (
     event: GestureResponderEvent,
     gestureState: PanResponderGestureState,
-    handlerPos: {x: number; y: number},
+    panPos: {x: number; y: number},
   ) => void;
   onShortPressRelease?: (event: GestureResponderEvent) => void;
   onDragRelease?: (

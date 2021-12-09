@@ -135,7 +135,7 @@ export default function Draggable(props) {
         Number.isFinite(maxY) ? maxY - bottom : far,
       );
       pan.current.setValue({x: changeX, y: changeY});
-      onDrag(e, gestureState, panPosition.current);
+      onDrag?.(e, gestureState, panPosition.current);
     },
     [maxX, maxY, minX, minY, onDrag, panPosition],
   );

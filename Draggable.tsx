@@ -42,7 +42,7 @@ interface IProps {
   onDrag?: (
     e: GestureResponderEvent,
     gestureState: PanResponderGestureState,
-    handlerPos: {x: number; y: number},
+    panPos: {x: number; y: number},
   ) => void;
   onShortPressRelease?: (event: GestureResponderEvent) => void;
   onDragRelease?: (
@@ -106,7 +106,7 @@ export default function Draggable(props: IProps) {
   // Whether we're currently dragging or not
   const isDragging = React.useRef(false);
   // Because why not
-  const dragHandlerPosition = React.useRef({x: 0, y: 0});
+  const panPosition = React.useRef({x: 0, y: 0});
 
   const getBounds = React.useCallback(() => {
     const left = x ? x + offsetFromStart.current.x : 0;
@@ -164,11 +164,7 @@ export default function Draggable(props: IProps) {
   );
 
   const handleOnDrag = React.useCallback(
-    (
-      e: GestureResponderEvent,
-      gestureState: PanResponderGestureState,
-      handlerPos: {x: number; y: number},
-    ) => {
+    (e: GestureResponderEvent, gestureState: PanResponderGestureState) => {
       const {dx, dy} = gestureState;
       const {top, right, left, bottom} = startBounds.current;
       const far = 999999999;
@@ -184,14 +180,10 @@ export default function Draggable(props: IProps) {
           Number.isFinite(maxY) ? maxY - bottom : far,
         );
         pan.current.setValue({x: changeX, y: changeY});
-        handlerPos = dragHandlerPosition.current;
-
-        if (onDrag) {
-          onDrag(e, gestureState, handlerPos);
-        }
+        onDrag?.(e, gestureState, panPosition.current);
       }
     },
-    [maxX, maxY, minX, minY, onDrag, dragHandlerPosition],
+    [maxX, maxY, minX, minY, onDrag],
   );
 
   const panResponder = React.useMemo(() => {
@@ -205,7 +197,7 @@ export default function Draggable(props: IProps) {
         Animated.event([], {
           // Typed incorrectly https://reactnative.dev/docs/panresponder
           listener: (event: NativeSyntheticEvent<NativeTouchEvent>) =>
-            handleOnDrag(event, gestureState, dragHandlerPosition.current),
+            handleOnDrag(event, gestureState),
           useNativeDriver: false,
         }),
       onPanResponderRelease,
@@ -223,9 +215,9 @@ export default function Draggable(props: IProps) {
     if (!shouldReverse) {
       curPan.addListener((c: {x: any; y: any}) => {
         offsetFromStart.current = c;
-        dragHandlerPosition.current = {x: c.x, y: c.y};
+        panPosition.current = {x: c.x, y: c.y};
         if (onPanPositionChanged) {
-          onPanPositionChanged(dragHandlerPosition.current);
+          onPanPositionChanged(panPosition.current);
         }
       });
     }
