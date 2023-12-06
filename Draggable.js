@@ -179,15 +179,15 @@ export default function Draggable(props) {
       left: 0,
       width: Window.width,
       height: Window.height,
+      elevation: z,
+      zIndex: z,
     };
-  }, []);
+  }, [z]);
 
   const dragItemCss = React.useMemo(() => {
     const style = {
       top: y,
       left: x,
-      elevation: z,
-      zIndex: z,
     };
     if (renderColor) {
       style.backgroundColor = renderColor;
@@ -208,7 +208,7 @@ export default function Draggable(props) {
       width: renderSize,
       height: renderSize,
     };
-  }, [children, isCircle, renderColor, renderSize, x, y, z]);
+  }, [children, isCircle, renderColor, renderSize, x, y]);
 
   const touchableContent = React.useMemo(() => {
     if (children) {
